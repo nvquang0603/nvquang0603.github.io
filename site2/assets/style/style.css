@@ -3,8 +3,9 @@
 	margin: 0;
 	box-sizing: border-box;
 }
-body {
+.container {
 	width: 980px;
+	height: 1000px;
 	margin: auto;
 	background: #FF5F5F;
 }
