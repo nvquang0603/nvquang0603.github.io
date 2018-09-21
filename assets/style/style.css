@@ -3,19 +3,134 @@
 	margin: 0;
 	box-sizing: border-box;
 }
-html,body {
+html {
+	font-family: 'Helvetica';
+}
+html, body, .home {
 	width: 100%;
 	height: 100%;
+	background: #ccc;
 }
-.logo {
-	width: 90px;
-	height: 100vmin;
-	background: red;
+img {
+	max-width: 100%;
+}
+nav,
+.information,
+.content {
+	height: 100%;
 	float: left;
 }
 nav {
-	width: 400px;
-	height: 100vmin;
-	background: cyan;
+	position: fixed;
+	width: 5%;
+	background: #727272;
 	float: left;
+}
+.information {
+	display: flex;
+	flex-flow: column;
+	align-items: center;
+	position: fixed;
+	left: 5%;
+	width: 20%;
+	background: #fff;
+	float: left;
+}
+.content {
+	position: relative;
+	left: 25%;
+	width: 75%;
+	background: url(../images/main1.jpg);
+	background-position: center;
+	background-size: 100% 100%;
+	color: #fff;
+	float: left;
+}
+.content-box {
+	display: flex;
+	flex-flow: column;
+	padding: 5%;
+	width: 55%;
+	height: 55%;
+	border: 20px solid rgba(255,255,255,0.5);
+	position: absolute;
+	top: 25%;
+	left: 10%;
+	overflow: hidden;
+}
+.content-box h1 {
+	position: relative;
+	font-family: Impact;
+	font-size: 5em;
+	max-width: 100%;
+	margin-bottom: 1em;
+	word-wrap: wrap;
+}
+.content-box h1:after {
+	content: "";
+	width: 50%;
+	border: 7px solid #fff;
+	position: absolute;
+	bottom: -0.5em;
+	left: 0;
+}
+.content-box p {
+	font-family: 'Segoe UI';
+	text-align: justify;
+	font-size: 20px;
+	line-height: 32px;
+}
+.avatar {
+	margin: 20% auto;
+	background: url(../images/user.png);
+	background-size: cover;
+	width: 55%;
+	padding-top: 55%;
+	border-radius: 50%;
+}
+.fullname {
+	max-width: 85%;
+	text-align: center;
+	font-size: 2em;
+}
+.title {
+	color: #999999;
+	text-align: center;
+	max-width: 85%;
+	font-size: 1.2em;
+	line-height: 1.92em;
+}
+.someword {
+	font-size: 1.2em;	
+	margin-top: 15%;
+	max-width: 85%;
+	text-align: justify;
+	padding: 10px;
+}
+.btn {
+	margin-top: 10%;
+	padding: 12px 20px;
+	width: 85%;
+	background: #656565;
+	color: #fff;
+	text-decoration: none;
+	text-align: center;
+}
+.btn:hover {
+	background: #464646;
+}
+.contact a{
+	line-height: 40px;
+	padding: 3px;
+	font-size: 1.5em;
+	color: #939393;
+}
+.fa-facebook:hover {
+	color: #4267b2;
+}
+.fa-github:hover {
+	color: #000000;
+}
+.fa-envelope:hover {
+	color: #dc453a;
 }
