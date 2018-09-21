@@ -11,6 +11,9 @@ html, body, .home {
 	height: 100%;
 	background: #ccc;
 }
+.home {
+	overflow: hidden;
+}
 img {
 	max-width: 100%;
 }
@@ -22,9 +25,41 @@ nav,
 }
 nav {
 	position: fixed;
+	display: grid;
+	align-items: center;
 	width: 5%;
-	background: #727272;
+	background: #030408;
 	float: left;
+}
+nav ul li a {
+	position: relative;
+	display: block;
+	cursor: pointer;
+	text-decoration: none;
+	color: #fff;
+	width: 100%;
+	line-height: 100px;
+	font-size: 1em;
+	text-align: center;
+	background: #030408;
+	transition: 0.3s;
+}
+.last:after {
+	border: none;
+}
+nav ul li a:after {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	content: "";
+	border: 1px solid #fff;
+	width: 100%;
+	opacity: 0.5;
+}
+nav ul li a:hover {
+	background: #fff;
+	color: #000;
+	opacity: 0.5;
 }
 .information {
 	display: flex;
@@ -75,14 +110,13 @@ nav {
 	left: 0;
 }
 .content-box p {
-	font-family: 'Segoe UI';
 	text-align: justify;
 	font-size: 20px;
 	line-height: 32px;
 }
 .avatar {
-	margin: 20% auto;
-	background: url(../images/user.png);
+	margin: 25% auto;
+	background: url(../images/avatar.jpg);
 	background-size: cover;
 	width: 55%;
 	padding-top: 55%;
@@ -133,4 +167,7 @@ nav {
 }
 .fa-envelope:hover {
 	color: #dc453a;
+}
+.fa-home {
+	font-size: 1.5em;
 }
