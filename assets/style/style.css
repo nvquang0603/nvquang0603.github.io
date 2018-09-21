@@ -13,6 +13,13 @@ html, body, .home {
 .home {
 	overflow: hidden;
 }
+a {
+	text-decoration: none;
+	color: #ccc;
+}
+a:hover {
+	color: #4267b2;
+}
 img {
 	max-width: 100%;
 }
@@ -101,6 +108,10 @@ nav ul li a:hover {
 	left: 20%;
 	overflow: hidden;
 }
+#portfolio.content-box {
+	top: 0;
+	left: 0;
+}
 .content-box h1 {
 	position: relative;
 	font-family: 'PaytoneOne-Regular';
@@ -181,7 +192,8 @@ nav ul li a:hover {
 	font-size: 1.5em;
 }
 h1,
-p {
+p,
+p a {
 	transition: 0.8s;
 }
 h1:after {
@@ -190,7 +202,8 @@ h1:after {
 .content:hover h1 {
 	color: red;
 }
-.content:hover p {
+.content:hover p,
+.content:hover p a {
 	color: #030408;
 }
 .content:hover h1:after {
@@ -199,7 +212,11 @@ h1:after {
 }
 .dong-thong-tin {
 	display: grid;
-	grid-template-columns: 0.4fr 0.1fr 1fr;
+	grid-template-columns: 0.5fr 0.1fr 1fr;
+}
+.dong-thong-tin p {
+	line-height: 40px;
+	text-align: left;
 }
 @font-face {
 	font-family: 'PaytoneOne-Regular';
