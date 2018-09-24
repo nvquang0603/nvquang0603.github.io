@@ -1,11 +1,13 @@
 <?php 
 	require_once './public/assets/commons/utils.php';
 	$id = $_GET['id'];
-	$sqlProduct = "select * from products where id = $id";
+	$sqlProduct = "select * from " . TABLE_PRODUCT .
+						" where id = $id";
 	$stmt = $conn->prepare($sqlProduct);
 	$stmt->execute();
 	$product = $stmt->fetch();
-	$sqlComment = "select * from comments where product_id = $id order by id desc";
+	$sqlComment = "select * from " . TABLE_COMMENT .
+						" where product_id = $id order by id desc";
 	$stmt = $conn->prepare($sqlComment);
 	$stmt->execute();
 	$comments = $stmt->fetchAll();
@@ -14,7 +16,7 @@
 			echo "Còn hàng";
 		}
 		else if ($status==0) {
-			echo "Hết hàng";
+			echo "Tạm hết hàng";
 		}
 	}
 ?>
@@ -24,7 +26,7 @@
 	<?php 
 		include './public/assets/_share/header_assets.php'
 	?>
-	<title><?php echo $product['product_name'] ?></title>
+	<title>Sản phẩm <?php echo $product['product_name'] ?></title>
 </head>
 <body>
 	<!-- Mã nhúng fanpage -->
@@ -40,10 +42,12 @@
 	}(document, 'script', 'facebook-jssdk'));
 	</script>
 	<!-- Mã nhúng fanpage -->
-	<div class="container">
+
 		<?php 
 			include './public/assets/_share/header.php';
 		?>
+		<div class="container">
+			<hr>
 		<div class="row">
 			<div class="col-md-4">
 				<img src="<?php echo $product['image']?>" class="mx-auto d-block rounded single-product-image">
@@ -53,7 +57,7 @@
 				<p><?php echo $product['detail'] ?></p>
 				<p>Trạng thái: <?php status($product['status']) ?></p>
 				<p>Lượt xem: <?php echo $product['views'] ?></p>
-				<a href="#" class="btn btn-primary">hihi</a>
+				<a href="#" class="btn btn-primary">Mua</a>
 			</div>
 		</div>
 		<hr>
@@ -62,7 +66,7 @@
 			<p><?php echo $product['detail'] ?></p>
 			</div>
 		</div>
-		<h3>Sản phẩm liên quan</h3>
+		<h3>Sản phẩm cùng danh mục</h3>
 		<div class="row product-row">
 			<?php
 				$product_cate = $product['cate_id'];
@@ -74,11 +78,11 @@
 				<?php 
 					foreach ($relateProduct as $relateProduct) {
 				?>
-				<div class="col-md-3 single-card">
+				<div class="col">
 				<div class="card">
 				  <img class="card-img-top" src="<?php echo $relateProduct['image']?>" alt="Card image cap">
 				  <div class="card-body">
-				    <a href="<?= $siteUrl?>product_detail.php?id=<?= $relateProduct['id']?>"><h5 class="card-title"><?php echo $relateProduct['product_name'] ?></h5></a>
+				    <a href="<?= $siteUrl?>product_detail.php?id=<?= $relateProduct['id']?>"><h5 class="card-title"><?php echo $relateProduct['product_name'] ?><?php inOutStock($relateProduct['status']) ?></h5></a>
 				    <p class="card-text list-price"><?php echo $relateProduct['list_price'] ?></p>
 				    <p class="cart-text sale-price"><?php echo $relateProduct['sell_price']; ?></p>
 				    <a href="<?= $siteUrl?>product_detail.php?id=<?= $relateProduct['id']?>" class="btn btn-primary">Xem chi tiết</a>
@@ -108,28 +112,33 @@
 							</div>
 					</form>
 			</div>
-
+			<div class="comments-title">
+				<h3>Danh sách bình luận</h3>
+				<hr>
+			</div>
 			<?php foreach ($comments as $item): ?>
-				<div class="row">
+				
 					<div>
 						<b><?= $item['email']?></b>
 						<hr>
 						<p><?= $item['content']?></p>
 						<br>
 					</div>
-				</div>
+				
 			<?php endforeach ?>
 		</div>
+	</div>
 		<?php 
 			include './public/assets/_share/footer.php';
 		?>
-	</div>
+
 	<script type="text/javascript" src="public/plugins/slick/slick.min.js"></script>
 	<script type="text/javascript">
 		$('.product-row').slick({
-		  centerMode: true,
+		  infinite: true,
 		  centerPadding: '60px',
-		  slidesToShow: 3,
+		  slidesToShow: 4,
+		  slidesToScroll: 3,
 		  responsive: [
 		    {
 		      breakpoint: 768,

@@ -2,7 +2,7 @@
 	require_once './public/assets/commons/utils.php';
 	$cateId = $_GET['id'];
 	$pageNumber = isset($_GET['page']) == true ? $_GET['page'] : 1;
-	$pageSize = 2;
+	$pageSize = 4;
 
 	$sql = "select 
 			c.*,
@@ -24,8 +24,8 @@
 	$offset = ($pageNumber-1)*$pageSize;
 
 	$sql = "	select * 
-				from products 
-				where cate_id = $cateId
+				from " . TABLE_PRODUCT .
+				" where cate_id = $cateId
 				limit $offset, $pageSize";
 	$stmt = $conn->prepare($sql);
 	$stmt->execute();
@@ -35,22 +35,23 @@
 		 <!DOCTYPE html>
 	<html lang="en">
 	<head>
-		<div class="container">
+		
 	    <?php 
 			include './public/assets/_share/header_assets.php'
 		?>
 		<link rel="stylesheet" type="text/css" href="public/plugins/simplePagination/simplePagination.css">
 		<script type="text/javascript" src="public/plugins/simplePagination/jquery.simplePagination.js"></script>
-		<title><?= $cate['name']?></title>
+		<title>Danh mục <?= $cate['name']?></title>
 	</head>
 
 	<body>
 	    <?php 
 			include './public/assets/_share/header.php';
 		?>
+		<div class="container">
 		<div class="product">
 			<div class="tittle-product">
-				<h2><?= $cate['name']?></h2>
+				<h2>Danh mục <?= $cate['name']?></h2>
 			</div>
 			<div class="row product-row">
 				<?php 
@@ -61,7 +62,7 @@
 				<div class="card">
 				  <img class="card-img-top" src="<?php echo $product['image']?>" alt="Card image cap">
 				  <div class="card-body">
-				    <a href="<?= $siteUrl?>product_detail.php?id=<?= $product['id']?>"><h5 class="card-title"><?php echo $product['product_name'] ?></h5></a>
+				    <a href="<?= $siteUrl?>product_detail.php?id=<?= $product['id']?>"><h5 class="card-title"><?php echo $product['product_name'] ?><?php inOutStock($product['status']) ?></h5></a>
 				    <p class="card-text list-price"><?php echo $product['list_price'] ?></p>
 				    <p class="cart-text sale-price"><?php echo $product['sell_price']; ?></p>
 				    <a href="<?= $siteUrl?>product_detail.php?id=<?= $product['id']?>" class="btn btn-primary">Xem chi tiết</a>
@@ -84,10 +85,11 @@
 			include './public/assets/_share/brand.php' 
 		?>				
 		<hr>
+		</div>	
 		<?php 
 			include './public/assets/_share/footer.php';
 		?>
-		</div>		
+			
 		<script type="text/javascript" src="public/plugins/slick/slick.min.js"></script>
 		<script type="text/javascript">
 			$('.center').slick({

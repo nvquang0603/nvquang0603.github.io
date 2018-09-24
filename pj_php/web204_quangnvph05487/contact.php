@@ -38,11 +38,11 @@
 	}(document, 'script', 'facebook-jssdk'));
 	</script>
 	<!-- 	Mã nhúng fanpage -->
-	<div class="container">
 		<?php 
 	    include './public/assets/_share/header.php';
 	     ?>
-		<div class="row contact-body">
+	     <div class="container">
+	     	<div class="row contact-body">
 			<div class="about-content col-md-8">
 				<h3>Địa chỉ</h3>
 				<p>- 90 Xã Đàn, P. Phương Liên, Q. Đống Đa</p>
@@ -74,10 +74,11 @@
 				</form>
 			</div>
 		</div>
+	     </div>
+		
 		<?php 
 			include './public/assets/_share/footer.php';
 		?>
-	</div> <!-- Container -->
 </body>
 </html>
 <?php

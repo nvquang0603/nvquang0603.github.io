@@ -1,12 +1,14 @@
 <?php 
 	require_once './public/assets/commons/utils.php';	
-	$sqlsetting = "select * from web_settings";
+	$sqlsetting = 'select * from ' . TABLE_WEBSETTING;
 	$stmt = $conn->prepare($sqlsetting);
 	$stmt->execute();
 	$settings = $stmt->fetch();
- ?>
- <div class="row footer">
-				<div class="col-md-4 about">
+?>
+<div class="footer">
+ 			<div class="container">
+ 				<div class="row">
+ 				<div class="col-md-4 about">
 					<h3>Thông tin</h3>
 					<br>
 					<h5>Shop Totoro 1988</h5>
@@ -24,4 +26,6 @@
 					<h3>Fanpage</h3>
 					<?php echo $settings['fb'] ?>
 				</div>
-			</div>
+				</div>
+ 			</div>				
+</div>

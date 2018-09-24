@@ -1,10 +1,11 @@
 <?php 
 	require_once './public/assets/commons/utils.php';	
-	$sqlBrand = 'select * from brands';
+	$sqlBrand = 'select * from ' . TABLE_BRAND;
 	$stmt = $conn->prepare($sqlBrand);
 	$stmt->execute();
 	$brands = $stmt->fetchAll();
-?>
+?>	
+	<div class="container">
 	<div class="center brand">
 		<?php 
 			foreach ($brands as $brands) {
@@ -13,4 +14,5 @@
 		<?php
 			}
 		?>
+	</div>
 	</div>

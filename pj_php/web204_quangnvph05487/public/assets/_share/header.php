@@ -1,19 +1,20 @@
 <?php 
 	require_once './public/assets/commons/utils.php';
-	$sqlsetting = "select * from web_settings";
+	$sqlsetting = "select * from " . TABLE_WEBSETTING;
 	$stmt = $conn->prepare($sqlsetting);
 	$stmt->execute();
 	$settings = $stmt->fetch();
-	$sqlcategory = "select * from categories";
+	$sqlcategory = "select * from " . TABLE_CATEGORY;
 	$stmt = $conn->prepare($sqlcategory);
 	$stmt->execute();
 	$cates = $stmt->fetchAll();
 ?>
-<div class="row top-bar">
+<div class="container">
+	<div class="row top-bar">
 			<div class="col-md-2 offset-md-7 text-center">SĐT: <?php echo $settings['hotline'] ?></div>
 			<div class="col-md-3 text-center">Thời gian làm việc: 7h - 11h</div>
 		</div>
-<div class="row header">
+	<div class="row header">
 			<div class="col-xs col-md-3 logo">
 				<a href="index.php"><img src="<?php echo $settings['logo']?>"></a>
 			</div>
@@ -43,3 +44,4 @@
 				</ul>
 			</div>
 		</div>
+</div>

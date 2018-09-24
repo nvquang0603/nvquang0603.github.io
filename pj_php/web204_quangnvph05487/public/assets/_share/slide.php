@@ -1,10 +1,11 @@
 <?php 
-	$sqlslideshow = "select * from slideshows";
+	$sqlslideshow = "select * from " . TABLE_SLIDERSHOW . " where status = 1";
 	$stmt = $conn->prepare($sqlslideshow);
 	$stmt->execute();
 	$slides = $stmt->fetchAll();
  ?>
- <div class="row slide">
+ <div class="container-fluid">
+ 		<div class="row slide">
 			<div id="myCarousel" class="carousel slide" data-ride="carousel">
 			   <ol class="carousel-indicators">
 			   	<?php 
@@ -43,3 +44,5 @@
 			  </a>
 			</div>
 		</div>
+ 	</div>
+ 

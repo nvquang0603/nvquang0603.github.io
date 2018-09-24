@@ -1,15 +1,15 @@
 <?php 
 	require_once './public/assets/commons/utils.php';	
 	$newProductsQuery = "select * 
-						from products 
-						order by id desc
+						from " . TABLE_PRODUCT .
+						" order by id desc
 						limit 8";
 	$stmt = $conn->prepare($newProductsQuery);
 	$stmt->execute();
 	$newProducts = $stmt->fetchAll();
 	$mostViewProductsQuery = "	select * 
-								from products
-								order by views desc
+								from " . TABLE_PRODUCT .
+								" order by views desc
 								limit 6";
 	$stmt = $conn->prepare($mostViewProductsQuery);
 	$stmt->execute();
@@ -37,23 +37,23 @@
 	}(document, 'script', 'facebook-jssdk'));
 	</script>
 	<!-- Mã nhúng fanpage -->
-	<div class="container">
 		<?php 
 			include './public/assets/_share/header.php';
 		?>
 		<?php 
 			include './public/assets/_share/slide.php';
 		?>
-		<div class="product">
+		<div class="container">
+			<div class="product">
 			<div class="row product-row">
 				<?php 
-				foreach ($newProducts as $key => $product) {
+				foreach ($newProducts as $product) {
 				?>
-				<div class="col-md-3 single-card">
+				<div class="col-md-3 single-card">				
 				<div class="card">
-				  <img class="card-img-top" src="<?php echo $product['image']?>" alt="Card image cap">
-				  <div class="card-body">
-				    <a href="<?= $siteUrl?>product_detail.php?id=<?= $product['id']?>"><h5 class="card-title"><?php echo $product['product_name'] ?></h5></a>
+				 	<img class="card-img-top" src="<?php echo $product['image']?>" alt="Card image cap">
+				  	<div class="card-body">
+				    <a href="<?= $siteUrl?>product_detail.php?id=<?= $product['id']?>"><h5 class="card-title"><?php echo $product['product_name'] ?><?php inOutStock($product['status']) ?></h5></a>
 				    <p class="card-text list-price"><?php echo $product['list_price'] ?></p>
 				    <p class="cart-text sale-price"><?php echo $product['sell_price']; ?></p>
 				    <a href="<?= $siteUrl?>product_detail.php?id=<?= $product['id']?>" class="btn btn-primary">Xem chi tiết</a>
@@ -72,9 +72,9 @@
 				?>
 				<div class="col-md-3 single-card">
 				<div class="card">
-				  <img class="card-img-top" src="public/assets/images/dog.jpg" alt="Card image cap">
+				  <img class="card-img-top" src="<?php echo $feature['image']?>" alt="Card image cap">
 				  <div class="card-body">
-				    <a href="#"><h5 class="card-title"><?php echo $feature['product_name'] ?></h5></a>
+				    <a href="#"><h5 class="card-title"><?php echo $feature['product_name'] ?><?php inOutStock($product['status']) ?></h5></a>
 				    <p class="card-text list-price"><?php echo $feature['list_price'] ?></p>
 				    <p class="cart-text sale-price"><?php echo $feature['sell_price']; ?></p>
 				    <a href="#" class="btn btn-primary">Xem chi tiết</a>
@@ -87,45 +87,49 @@
 				?>
 		</div>
 		</div>
-			<hr>
+		<hr>
 				<?php include './public/assets/_share/brand.php' ?>				
-			<hr>
+		<hr>
+		</div>
 			<?php 
 				include './public/assets/_share/footer.php';
 			?>
-	</div> <!-- Container -->
 	<script type="text/javascript" src="public/plugins/slick/slick.min.js"></script>
 	<script type="text/javascript">
 		$('.center').slick({
-		  centerMode: true,
-		  centerPadding: '60px',
-		  slidesToShow: 3,
+		  dots: true,
+		  infinite: true,
+		  speed: 300,
+		  slidesToShow: 4,
+		  slidesToScroll: 3,
 		  responsive: [
 		    {
-		      breakpoint: 768,
+		      breakpoint: 1024,
 		      settings: {
-		        arrows: false,
-		        centerMode: true,
-		        centerPadding: '40px',
-		        slidesToShow: 3
+		        slidesToShow: 3,
+		        slidesToScroll: 3,
+		        infinite: true,
+		        dots: true
+		      }
+		    },
+		    {
+		      breakpoint: 600,
+		      settings: {
+		        slidesToShow: 2,
+		        slidesToScroll: 2
 		      }
 		    },
 		    {
 		      breakpoint: 480,
 		      settings: {
-		        arrows: false,
-		        centerMode: true,
-		        centerPadding: '40px',
-		        slidesToShow: 1
+		        slidesToShow: 1,
+		        slidesToScroll: 1
 		      }
 		    }
+		    // You can unslick at a given breakpoint now by adding:
+		    // settings: "unslick"
+		    // instead of a settings object
 		  ]
-		});
-		$('.autoplay').slick({
-		  slidesToShow: 3,
-		  slidesToScroll: 1,
-		  autoplay: true,
-		  autoplaySpeed: 2000,
 		});
 	</script>
 </body>
