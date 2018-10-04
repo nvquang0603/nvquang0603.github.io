@@ -1,5 +1,5 @@
 <?php 
-	require_once './public/assets/commons/utils.php';	
+	require_once './assets/commons/utils.php';	
 	$newProductsQuery = "select * 
 						from " . TABLE_PRODUCT .
 						" order by id desc
@@ -19,7 +19,7 @@
 <html lang="en">
 <head>
 	<?php 
-		include './public/assets/_share/header_assets.php'
+		include './assets/_share/header_assets.php'
 	?>
 	<title>Trang chủ</title>
 </head>
@@ -38,10 +38,10 @@
 	</script>
 	<!-- Mã nhúng fanpage -->
 		<?php 
-			include './public/assets/_share/header.php';
+			include './assets/_share/header.php';
 		?>
 		<?php 
-			include './public/assets/_share/slide.php';
+			include './assets/_share/slide.php';
 		?>
 		<div class="container">
 			<div class="product">
@@ -51,11 +51,11 @@
 				?>
 				<div class="col-md-3 single-card">				
 				<div class="card">
-				 	<img class="card-img-top" src="<?php echo $product['image']?>" alt="Card image cap">
+				 	<a href="<?= $siteUrl?>product_detail.php?id=<?= $product['id']?>"><img class="card-img-top" src="<?php echo $product['image']?>" alt="Card image cap"></a>
 				  	<div class="card-body">
 				    <a href="<?= $siteUrl?>product_detail.php?id=<?= $product['id']?>"><h5 class="card-title"><?php echo $product['product_name'] ?><?php inOutStock($product['status']) ?></h5></a>
-				    <p class="card-text list-price"><?php echo $product['list_price'] ?></p>
-				    <p class="cart-text sale-price"><?php echo $product['sell_price']; ?></p>
+				    <p class="card-text list-price"><?php echo $product['list_price'] ?>₫</p>
+				    <p class="cart-text sale-price"><?php echo $product['sell_price']; ?>₫</p>
 				    <a href="<?= $siteUrl?>product_detail.php?id=<?= $product['id']?>" class="btn btn-primary">Xem chi tiết</a>
 				  </div>
 				</div>
@@ -72,12 +72,12 @@
 				?>
 				<div class="col-md-3 single-card">
 				<div class="card">
-				  <img class="card-img-top" src="<?php echo $feature['image']?>" alt="Card image cap">
+				  <a href="<?= $siteUrl?>product_detail.php?id=<?= $product['id']?>"><img class="card-img-top" src="<?php echo $feature['image']?>" alt="Card image cap"></a>
 				  <div class="card-body">
-				    <a href="#"><h5 class="card-title"><?php echo $feature['product_name'] ?><?php inOutStock($product['status']) ?></h5></a>
+				    <a href="<?= $siteUrl?>product_detail.php?id=<?= $product['id']?>"><h5 class="card-title"><?php echo $feature['product_name'] ?><?php inOutStock($product['status']) ?></h5></a>
 				    <p class="card-text list-price"><?php echo $feature['list_price'] ?></p>
 				    <p class="cart-text sale-price"><?php echo $feature['sell_price']; ?></p>
-				    <a href="#" class="btn btn-primary">Xem chi tiết</a>
+				    <a href="<?= $siteUrl?>product_detail.php?id=<?= $product['id']?>" class="btn btn-primary">Xem chi tiết</a>
 				  </div>
 				</div>
 				</div>
@@ -88,13 +88,13 @@
 		</div>
 		</div>
 		<hr>
-				<?php include './public/assets/_share/brand.php' ?>				
+				<?php include './assets/_share/brand.php' ?>				
 		<hr>
 		</div>
 			<?php 
-				include './public/assets/_share/footer.php';
+				include './assets/_share/footer.php';
 			?>
-	<script type="text/javascript" src="public/plugins/slick/slick.min.js"></script>
+	<script type="text/javascript" src="plugins/slick/slick.min.js"></script>
 	<script type="text/javascript">
 		$('.center').slick({
 		  dots: true,
@@ -126,9 +126,6 @@
 		        slidesToScroll: 1
 		      }
 		    }
-		    // You can unslick at a given breakpoint now by adding:
-		    // settings: "unslick"
-		    // instead of a settings object
 		  ]
 		});
 	</script>

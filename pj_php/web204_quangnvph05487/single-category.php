@@ -1,5 +1,5 @@
 <?php 
-	require_once './public/assets/commons/utils.php';
+	require_once './assets/commons/utils.php';
 	$cateId = $_GET['id'];
 	$pageNumber = isset($_GET['page']) == true ? $_GET['page'] : 1;
 	$pageSize = 4;
@@ -7,8 +7,8 @@
 	$sql = "select 
 			c.*,
 			count(p.id) as total_product
-			from categories c
-			join products p
+			from ". TABLE_CATEGORY ." c
+			join ". TABLE_PRODUCT ." p
 			on c.id = p.cate_id 
 			where c.id = $cateId";
 
@@ -37,7 +37,7 @@
 	<head>
 		
 	    <?php 
-			include './public/assets/_share/header_assets.php'
+			include './assets/_share/header_assets.php'
 		?>
 		<link rel="stylesheet" type="text/css" href="public/plugins/simplePagination/simplePagination.css">
 		<script type="text/javascript" src="public/plugins/simplePagination/jquery.simplePagination.js"></script>
@@ -46,7 +46,7 @@
 
 	<body>
 	    <?php 
-			include './public/assets/_share/header.php';
+			include './assets/_share/header.php';
 		?>
 		<div class="container">
 		<div class="product">
@@ -60,7 +60,7 @@
 				?>
 				<div class="col-md-3 single-card">
 				<div class="card">
-				  <img class="card-img-top" src="<?php echo $product['image']?>" alt="Card image cap">
+				  <a href="<?= $siteUrl?>product_detail.php?id=<?= $product['id']?>"><img class="card-img-top" src="<?php echo $product['image']?>" alt="Card image cap"></a>
 				  <div class="card-body">
 				    <a href="<?= $siteUrl?>product_detail.php?id=<?= $product['id']?>"><h5 class="card-title"><?php echo $product['product_name'] ?><?php inOutStock($product['status']) ?></h5></a>
 				    <p class="card-text list-price"><?php echo $product['list_price'] ?></p>
@@ -82,15 +82,15 @@
 		
 		<hr>
 		<?php 
-			include './public/assets/_share/brand.php' 
+			include './assets/_share/brand.php' 
 		?>				
 		<hr>
 		</div>	
 		<?php 
-			include './public/assets/_share/footer.php';
+			include './assets/_share/footer.php';
 		?>
 			
-		<script type="text/javascript" src="public/plugins/slick/slick.min.js"></script>
+		<script type="text/javascript" src="plugins/slick/slick.min.js"></script>
 		<script type="text/javascript">
 			$('.center').slick({
 			  centerMode: true,
@@ -124,6 +124,7 @@
 			  autoplaySpeed: 2000,
 			});
 		</script>
+
 	<script type="text/javascript">
 		$(function() {
 			$('.paginate').pagination({

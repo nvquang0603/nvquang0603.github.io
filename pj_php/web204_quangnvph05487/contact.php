@@ -1,5 +1,5 @@
 <?php 
-	require_once './public/assets/commons/utils.php';	
+	require_once './assets/commons/utils.php';	
 	$newProductsQuery = "select * 
 						from products 
 						order by id desc
@@ -20,7 +20,7 @@
 <html lang="en">
 <head>
 	<?php 
-		include './public/assets/_share/header_assets.php'
+		include './assets/_share/header_assets.php'
 	?>
 	<title>Liên hệ</title>
 </head>
@@ -39,7 +39,7 @@
 	</script>
 	<!-- 	Mã nhúng fanpage -->
 		<?php 
-	    include './public/assets/_share/header.php';
+	    include './assets/_share/header.php';
 	     ?>
 	     <div class="container">
 	     	<div class="row contact-body">
@@ -77,7 +77,7 @@
 	     </div>
 		
 		<?php 
-			include './public/assets/_share/footer.php';
+			include './assets/_share/footer.php';
 		?>
 </body>
 </html>
