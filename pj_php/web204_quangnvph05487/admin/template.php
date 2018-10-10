@@ -1,4 +1,5 @@
 <?php 
+session_start();
 $path = '../';
 require_once $path.$path.'assets/commons/utils.php';
 ?>

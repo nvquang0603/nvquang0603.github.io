@@ -1,8 +1,9 @@
 <?php 
-  $path = '../';
-  require_once $path.$path.'assets/commons/utils.php';
-  $sqlProduct = 'select *, products.id as pid from products inner join categories on products.cate_id = categories.id order by pid';
-  $product = getSimpleQuery($sqlProduct,true);
+session_start();
+$path = '../';
+require_once $path.$path.'assets/commons/utils.php';
+$sqlProduct = 'select *, products.id as pid from products inner join categories on products.cate_id = categories.id order by pid';
+$product = getSimpleQuery($sqlProduct,true);
 ?>
 <!DOCTYPE html>
 <html>
@@ -54,79 +55,73 @@
           </div>
           <!-- /.box-header -->
           <div class="box-body">
-            <table class="table table-bordered">
-              <tbody><tr>
-                <th style="width: 10px">#</th>
-                <th>Ảnh sản phẩm</th>
-                <th>Tên sản phẩm</th>
-                <th>Danh mục</th>
-                <th>Giá gốc</th>
-                <th>Giá bán</th>
-                <th>Chi tiết</th>
-                <th>Lượt xem</th>
-                <th>Trạng thái</th>
-                <th style="width: 120px">
-                  <a href="<?= $adminUrl?>san-pham/add.php"
-                    class="btn btn-xs btn-success">
-                    Thêm
-                  </a>
-                </th>
-              </tr>
-              <?php foreach ($product as $product): ?>
+            <table id="productTable" class="display table table-bordered">
+              <thead>
                 <tr>
-                  <td><?php echo $product['pid'] ?></td>
-                  <td><img src="<?php echo $siteUrl . $product['image']?>" class='img-thumbnail' width=500px></td>
-                  <td><?php echo $product['product_name'] ?></td>
-                  <td><?php echo $product['name'] ?></td>
-                  <td>
-                    <?php echo $product['list_price'] ?>
-                  </td>
-                  <td>
-                    <?php echo $product['sell_price'] ?>
-                  </td>
-                  <td>
-                    <?php echo $product['detail'] ?>
-                  </td>
-                  <td>
-                    <?php echo $product['views'] ?>
-                  </td>
-                  <td>
-                    <?php 
-                    if ($product['status']==1) {
-                        echo "Còn hàng";
-                    }
-                    if ($product['status']==0) {
-                        echo "Hết hàng";
-                    }
-                    ?>
-                  </td>
-                  <td>
-                    <a href="<?= $adminUrl?>san-pham/edit.php?id=<?= $product['pid']?>"
-                      class="btn btn-xs btn-info">
-                      Chỉnh sửa
+                  <th style="width: 10px">#</th>
+                  <th>Ảnh sản phẩm</th>
+                  <th>Tên sản phẩm</th>
+                  <th>Danh mục</th>
+                  <th>Giá gốc</th>
+                  <th>Giá bán</th>
+                  <th>Chi tiết</th>
+                  <th>Lượt xem</th>
+                  <th>Trạng thái</th>
+                  <th style="width: 120px">
+                    <a href="<?= $adminUrl?>san-pham/add.php"
+                      class="btn btn-xs btn-success">
+                      Thêm
                     </a>
-                    <a href="javascript:void(0)" linkurl="<?= $adminUrl?>san-pham/remove.php?id=<?= $product['pid']?>"
-                      class="btn btn-xs btn-danger btn-remove">
-                      Xoá
-                    </a>
-                  </td>
+                  </th>
                 </tr>
-              <?php endforeach ?>
-            </tbody></table>
+              </thead>
+
+              <tbody>
+                
+                <?php foreach ($product as $product): ?>
+                  <tr>
+                    <td><?php echo $product['pid'] ?></td>
+                    <td><a href="<?php echo $siteUrl ?>product_detail.php?id=<?php echo $product['pid'] ?>" target="_blank"><img src="<?php echo $siteUrl . $product['image']?>" class='img-thumbnail' width=500px></a></td>
+                    <td><?php echo $product['product_name'] ?></td>
+                    <td><?php echo $product['name'] ?></td>
+                    <td>
+                      <?php echo $product['list_price'] ?>
+                    </td>
+                    <td>
+                      <?php echo $product['sell_price'] ?>
+                    </td>
+                    <td>
+                      <?php echo $product['detail'] ?>
+                    </td>
+                    <td>
+                      <?php echo $product['views'] ?>
+                    </td>
+                    <td>
+                      <?php 
+                      if ($product['status']==1) {
+                        echo "Còn hàng";
+                      }
+                      if ($product['status']==0) {
+                        echo "Hết hàng";
+                      }
+                      ?>
+                    </td>
+                    <td>
+                      <a href="<?= $adminUrl?>san-pham/edit.php?id=<?= $product['pid']?>"
+                        class="btn btn-xs btn-info">
+                        Chỉnh sửa
+                      </a>
+                      <a href="javascript:void(0)" linkurl="<?= $adminUrl?>san-pham/remove.php?id=<?= $product['pid']?>"
+                        class="btn btn-xs btn-danger btn-remove">
+                        Xoá
+                      </a>
+                    </td>
+                  </tr>
+                <?php endforeach ?>
+              </tbody>
+            </table>
           </div>
           <!-- /.box-body -->
-          <div class="box-footer clearfix">
-            <ul class="pagination pagination-sm no-margin pull-right">
-              <li><a href="#">«</a></li>
-              <li><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">»</a></li>
-            </ul>
-          </div>
-          <div class="row">
-            <div class="paginate"></div>
-          </div>
         </div>
       </section>
       <!-- /.content -->
@@ -145,31 +140,52 @@
   ?>
   <script type="text/javascript">
     <?php 
-      if (isset($_GET['success']) && $_GET['success'] == true) {
-        ?>
-          alert('Tạo mới sản phẩm thành công');
-        <?php
-      }
+    if (isset($_GET['edit-success']) && $_GET['edit-success'] == true) {
+      ?>
+      swal({
+        title: "Xác nhận",
+        text: "Sản phẩm đã được sửa",
+        icon: "success",
+        button: false,
+      });
+      <?php
+    }
+    if (isset($_GET['success']) && $_GET['success'] == true) {
+      ?>
+      swal({
+        title: "Xác nhận",
+        text: "Sản phẩm đã được thêm",
+        icon: "success",
+        button: false,
+      });
+      <?php
+    }
     ?>
     $('.btn-remove').on('click',function() {
-      var conf = confirm("Bạn có xác nhận muốn xóa sản phẩm này hay không?");
-      if (conf) {
-        window.location.href = $(this).attr('linkurl');
-      }
+      swal({
+        title: "Bạn có muốn xóa sản phẩm này không?",
+        text: "Một khi đã xóa. Sản phẩm sẽ không thể quay lại",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          window.location.href = $(this).attr('linkurl');
+          swal("Đang xóa", {
+            icon: "success",
+          });
+        } 
+        else {
+          swal("Bạn đã hủy việc xóa sản phẩm");
+        }
+      });
     })
   </script>
   <script type="text/javascript">
-    $(function() {
-      $('.paginate').pagination({
-          items: <?= $cate['total_product']?>,
-          itemsOnPage: <?= $pageSize?>,
-          currentPage: <?= $pageNumber?>,
-          cssStyle: 'light-theme',
-          onPageClick: function(page){
-          var url = '<?= $siteUrl . 'single-category.php?id=' . $cateId?>';
-        url+= `&page=${page}`;
-        window.location.href = url;      
-      }
+    $(document).ready(function() {
+      $('#productTable').DataTable( {
+        "pagingType": "full_numbers"
       });
     });
   </script>

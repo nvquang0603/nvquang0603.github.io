@@ -13,4 +13,6 @@ require_once './assets/commons/utils.php';
 	<script src="<?= SITE_URL ?>plugins/jquery/proper.min.js"></script>
 	<script src="<?= SITE_URL ?>plugins/bootstrap/js/bootstrap.min.js"></script>
 	<script src="<?= SITE_URL ?>plugins/simplePagination/jquery.simplePagination.js"></script>
+	<script src="<?= SITE_URL ?>plugins/sweetalert/dist/sweetalert.min.js"></script>
+	
 

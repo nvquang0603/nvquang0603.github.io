@@ -1,4 +1,5 @@
 <?php 
+session_start();
 $path = '../';
 require_once $path.$path.'assets/commons/utils.php';
 ?>
@@ -46,14 +47,15 @@ require_once $path.$path.'assets/commons/utils.php';
 
       <!-- Main content -->
       <section class="content">
-        <form action="<?= $adminUrl ?>danh-muc/save-add.php" method="post">
+        <form action="<?= $adminUrl ?>danh-muc/save-add.php" method="post" name="add-cate-form" onsubmit="return validateFormSubmit()">
           <div class="col-md-6">
             <div class="form-group">
               <label>Tên danh mục</label>
               <input type="text" name="name" class="form-control">
+              <span class="text-danger" id="errName"></span>
               <?php if (isset($_GET['errName'])) {
                 ?>
-                <span class="text-danger"><?php echo $_GET['errName'] ?></span>
+                <span class="text-danger" id="errNameBack"><?php echo $_GET['errName'] ?></span>
                 <?php
               } 
               ?>
@@ -82,5 +84,35 @@ require_once $path.$path.'assets/commons/utils.php';
   <?php 
   include $path.'_share/js_assets.php';
   ?>
+  <script type="text/javascript">
+    function validateFormSubmit() {
+      var name = document.forms["add-cate-form"]["name"];
+      var errName = document.getElementById("errName");
+      var errNameBack = document.getElementById("errNameBack");
+      if (name.value == "") {
+        if (errNameBack==null) {
+          swal({
+            title: "Bạn chưa điền tên danh mục!",
+            text: "...kiểm tra lại nhé!",
+            icon: "warning",
+            dangerMode: true,
+          });
+          document.getElementById("errName").innerHTML = "Bạn chưa điền tên danh mục. Tên danh mục phải không được trùng với sản phẩm đã có";
+          return false;
+        }
+        else {
+          swal({
+            title: "Bạn chưa điền tên danh mục!",
+            text: "...kiểm tra lại nhé!",
+            icon: "warning",
+            dangerMode: true,
+          });
+          document.getElementById("errName").innerHTML = "Bạn chưa điền tên danh mục. Tên danh mục phải không được trùng với sản phẩm đã có";
+          errNameBack.style.display = "none";
+          return false;
+        }
+      }
+    }
+  </script>
 </body>
 </html>

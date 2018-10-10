@@ -8,9 +8,9 @@
 	$product_name = test_input($_POST['name']);
 	$list_price = test_input($_POST['listprice']);
 	$sale_price = test_input($_POST['saleprice']);
-	$detail = test_input($_POST['detail']);
-	$cate_id = $_POST['category'];
-	$status = $_POST['status'];
+	$detail = $_POST['detail'];
+	$cate_id = test_input($_POST['category']);
+	$status = test_input($_POST['status']);
 	$imgName = unique_file_check(test_input($_FILES['image']['name']));
 	$imgType = $_FILES['image']['type'];
 	$imgSize= $_FILES['image']['size'];
@@ -24,9 +24,15 @@
 		die;
 	}
 	$sql = "select * from products where product_name = '$product_name'";
-	$rs = getSimpleQuery($sql);
-	if ($rs != false) {
+	$rs1 = getSimpleQuery($sql);
+	if ($rs1 != false) {
 		header('location: '. $adminUrl .'san-pham/add.php?errName=Tên sản phẩm đã tồn tại, vui lòng chọn tên khác');
+		die;
+	}
+	$sql = "select * from categories where id = '$cate_id'";
+	$rs2 = getSimpleQuery($sql);
+	if ($rs2 == false) {
+		header('location: '. $adminUrl .'san-pham/add.php?errCate=Danh mục bạn nhập không tồn tại');
 		die;
 	}
 	if ($sale_price=="") {
@@ -74,7 +80,8 @@
 	}
 	else {
 		move_uploaded_file($imgTmp, $imgSRC);
-	}	
+	}
+	
 	$sql = "insert into products values (null,'$cate_id','$product_name','$detail','$list_price','$sale_price','$imgUrl','$status',0)";
 	$sc = getSimpleQuery($sql);
 	header('location: '. $adminUrl . 'san-pham?success=true');

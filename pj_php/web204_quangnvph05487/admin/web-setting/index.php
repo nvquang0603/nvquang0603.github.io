@@ -1,8 +1,9 @@
 <?php 
-  $path = '../';
-  require_once $path.$path.'assets/commons/utils.php';
-  $sqlWebSetting = 'select * from web_settings';
-  $web_setting = getSimpleQuery($sqlWebSetting);
+session_start();
+$path = '../';
+require_once $path.$path.'assets/commons/utils.php';
+$sqlWebSetting = 'select * from web_settings';
+$web_setting = getSimpleQuery($sqlWebSetting);
 ?>
 <!DOCTYPE html>
 <html>
@@ -10,7 +11,7 @@
   <?php 
   include $path.'_share/style_assets.php';
   ?>
-  <title>AdminLTE 2 | Sản phẩm</title>
+  <title>AdminLTE 2 | Cấu hình web</title>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -23,14 +24,14 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
   <script>
-  (function(d, s, id) {
+    (function(d, s, id) {
       var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) return;
       js = d.createElement(s);
       js.id = id;
       js.src = 'https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v3.1&appId=195253094360623&autoLogAppEvents=1';
       fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
+    }(document, 'script', 'facebook-jssdk'));
   </script>
   <div class="wrapper">
 
@@ -72,19 +73,19 @@
                 <th>Email</th>
                 <th>Facebook</th>
               </tr>
-                <tr>
-                  <td><img src="<?php echo $siteUrl . $web_setting['logo']?>" class='img-thumbnail' width=300px></td>
-                  <td><?php echo $web_setting['hotline'] ?></td>
-                  <td><?php echo $web_setting['map'] ?></td>
-                  <td><?php echo $web_setting['email'] ?></td>
-                  <td><?php echo $web_setting['fb'] ?></td>
-                  <td>
-                    <a href="<?= $adminUrl?>web_settingshow/edit.php?id=<?= $web_setting['id']?>"
-                      class="btn btn-xs btn-info">
-                      Chỉnh sửa
-                    </a>
-                  </td>
-                </tr>
+              <tr>
+                <td><img src="<?php echo $siteUrl . $web_setting['logo']?>" class='img-thumbnail' width=300px></td>
+                <td><?php echo $web_setting['hotline'] ?></td>
+                <td><?php echo $web_setting['map'] ?></td>
+                <td><?php echo $web_setting['email'] ?></td>
+                <td><?php echo $web_setting['fb'] ?></td>
+                <td>
+                  <a href="<?= $adminUrl?>web-setting/edit.php"
+                    class="btn btn-xs btn-info">
+                    Chỉnh sửa
+                  </a>
+                </td>
+              </tr>
             </tbody></table>
           </div>
           <!-- /.box-body -->
@@ -115,18 +116,17 @@
   ?>
   <script type="text/javascript">
     <?php 
-      if (isset($_GET['success']) && $_GET['success'] == true) {
-        ?>
-          alert('Tạo mới web_setting thành công');
-        <?php
-      }
+    if (isset($_GET['edit-success']) && $_GET['edit-success'] == true) {
+      ?>
+      swal({
+        title: "Xác nhận",
+        text: "Thông tin website đã được sửa",
+        icon: "success",
+        button: false,
+      });
+      <?php
+    }
     ?>
-    $('.btn-remove').on('click',function() {
-      var conf = confirm("Bạn có xác nhận muốn xóa web_setting này hay không?");
-      if (conf) {
-        window.location.href = $(this).attr('linkurl');
-      }
-    })
   </script>
 </body>
 </html>

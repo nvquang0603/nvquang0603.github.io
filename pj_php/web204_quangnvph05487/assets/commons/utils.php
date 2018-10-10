@@ -15,11 +15,10 @@
 	define('TABLE_COMMENT', 'comments');
 	define('SITE_URL', "http://localhost/web204_quangnvph05487/");
 	function inOutStock($status) {
-		if ($status==1) {
-			echo "";
-		}
-		else if($status==0) {
-			echo "<br>(Tạm hết hàng)";
+		if($status==0) {
+			?>
+			<img src="assets/images/out-of-stock.png" class="out-of-stock-ribbon">
+			<?php
 		}
 	}
 	function dd($vari){

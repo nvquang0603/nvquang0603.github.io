@@ -1,15 +1,15 @@
 <?php 
-$path = './';
-require_once $path.'../assets/commons/utils.php';
-
-$countCateQuery = "select count(*) as total from categories";
-$countCate = getSimpleQuery($countCateQuery);
-$countProductQuery = "select count(*) as total from products";
-$countProduct = getSimpleQuery($countProductQuery);
-$countCommentQuery = "select count(*) as total from comments";
-$countComment = getSimpleQuery($countCommentQuery);
-$countUserQuery = "select count(*) as total from users";
-$countUser = getSimpleQuery($countUserQuery);
+session_start();
+  $path = './';
+  require_once $path.'../assets/commons/utils.php';
+  $countCateQuery = "select count(*) as total from categories";
+  $countCate = getSimpleQuery($countCateQuery);
+  $countProductQuery = "select count(*) as total from products";
+  $countProduct = getSimpleQuery($countProductQuery);
+  $countCommentQuery = "select count(*) as total from comments";
+  $countComment = getSimpleQuery($countCommentQuery);
+  $countUserQuery = "select count(*) as total from users";
+  $countUser = getSimpleQuery($countUserQuery);
 ?>
 <!DOCTYPE html>
 <html>
@@ -17,7 +17,7 @@ $countUser = getSimpleQuery($countUserQuery);
   <?php 
   include $path.'_share/style_assets.php';
   ?>
-
+  <title>Admin LTE | Quản trị</title>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -67,7 +67,7 @@ $countUser = getSimpleQuery($countUserQuery);
               <div class="icon">
                 <i class="fa fa-list"></i>
               </div>
-              <a href="<?php echo $adminUrl?>danh-muc" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+              <a href="<?php echo $adminUrl?>danh-muc" class="small-box-footer">Xem thêm <i class="fa fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -82,7 +82,7 @@ $countUser = getSimpleQuery($countUserQuery);
               <div class="icon">
                 <i class="fa fa-cubes"></i>
               </div>
-              <a href="<?php echo $adminUrl?>san-pham" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+              <a href="<?php echo $adminUrl?>san-pham" class="small-box-footer">Xem thêm <i class="fa fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -91,13 +91,12 @@ $countUser = getSimpleQuery($countUserQuery);
             <div class="small-box bg-yellow">
               <div class="inner">
                 <h3><?php echo $countComment['total'] ?></h3>
-
                 <p>Comments</p>
               </div>
               <div class="icon">
                 <i class="fa fa-comments"></i>
               </div>
-              <a href="<?php echo $adminUrl?>comment" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+              <a href="<?php echo $adminUrl?>comment" class="small-box-footer">Xem thêm <i class="fa fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -112,7 +111,7 @@ $countUser = getSimpleQuery($countUserQuery);
               <div class="icon">
                 <i class="fa fa-users"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+              <a href="<?php echo $adminUrl?>users" class="small-box-footer">Xem thêm <i class="fa fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
@@ -132,5 +131,21 @@ $countUser = getSimpleQuery($countUserQuery);
   <?php 
   include $path.'_share/js_assets.php';
   ?>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      <?php 
+          if (isset($_GET['errAdmin'])) {
+            ?>
+              swal({
+                title: "Không thể truy cập",
+                text: "<?php echo $_GET['errAdmin']?>",
+                icon: "warning",
+                button: false,
+              });
+            <?php
+          }
+      ?>
+    });
+  </script>
 </body>
 </html>

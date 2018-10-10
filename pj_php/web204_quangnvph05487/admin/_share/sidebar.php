@@ -8,10 +8,10 @@
     <!-- Sidebar user panel -->
     <div class="user-panel">
       <div class="pull-left image">
-        <img src="<?= $adminAssetUrl?>dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+        <img src="<?= $siteUrl . $_SESSION['login']['avatar']?>" class="img-circle" alt="User Image">
       </div>
       <div class="pull-left info">
-        <p>Alexander Pierce</p>
+        <p><?php echo $_SESSION['login']['fullname'] ?></p>
         <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
       </div>
     </div>
@@ -78,7 +78,7 @@
           <li class=""><a href="<?php echo $adminUrl?>comment"><i class="fa fa-circle-o"></i> Danh sách</a></li>
         </ul>
       </li>
-      <li class="treeview">
+      <!-- <li class="treeview">
         <a href="#">
           <i class="fa fa-envelope"></i> <span>Liên hệ</span>
           <span class="pull-right-container">
@@ -88,7 +88,7 @@
         <ul class="treeview-menu">
           <li class=""><a href="index.html"><i class="fa fa-circle-o"></i> Danh sách</a></li>
         </ul>
-      </li>
+      </li> -->
       <li class="treeview">
         <a href="#">
           <i class="fa fa-truck"></i> <span>Đối tác</span>
@@ -97,8 +97,8 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li class=""><a href="index.html"><i class="fa fa-circle-o"></i> Danh sách</a></li>
-          <li class=""><a href="index.html"><i class="fa fa-circle-o"></i> Tạo mới</a></li>
+          <li class=""><a href="<?php echo $adminUrl?>brand"><i class="fa fa-circle-o"></i> Danh sách</a></li>
+          <li class=""><a href="<?php echo $adminUrl?>brand/add.php"><i class="fa fa-circle-o"></i> Tạo mới</a></li>
         </ul>
       </li>
       <li class="treeview">
@@ -109,8 +109,8 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li class=""><a href="index.html"><i class="fa fa-circle-o"></i> Danh sách</a></li>
-          <li class=""><a href="index.html"><i class="fa fa-circle-o"></i> Tạo mới</a></li>
+          <li class=""><a href="<?php echo $adminUrl?>users"><i class="fa fa-circle-o"></i> Danh sách</a></li>
+          <li class=""><a href="<?php echo $adminUrl?>users/add.php"><i class="fa fa-circle-o"></i> Tạo mới</a></li>
         </ul>
       </li>
       <li class="treeview">

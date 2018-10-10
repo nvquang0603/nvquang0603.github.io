@@ -1,8 +1,9 @@
 <?php 
-  $path = '../';
-  require_once $path.$path.'assets/commons/utils.php';
-  $sqlBrand = 'select * from brands order by id';
-  $brand = getSimpleQuery($sqlBrand,true);
+session_start();
+$path = '../';
+require_once $path.$path.'assets/commons/utils.php';
+$sqlBrand = 'select * from brands order by id';
+$brand = getSimpleQuery($sqlBrand,true);
 ?>
 <!DOCTYPE html>
 <html>
@@ -10,7 +11,7 @@
   <?php 
   include $path.'_share/style_assets.php';
   ?>
-  <title>AdminLTE 2 | Sản phẩm</title>
+  <title>AdminLTE 2 | Thương hiệu</title>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -54,79 +55,111 @@
           </div>
           <!-- /.box-header -->
           <div class="box-body">
-            <table class="table table-bordered">
-              <tbody><tr>
-                <th style="width: 10px">#</th>
-                <th width="300px">Logo thương hiệu</th>
-                <th width="300px">Tên thương hiệu</th>
-                <th>URL</th>
-                <th style="width: 120px">
-                  <a href="<?= $adminUrl?>brand/add.php"
-                    class="btn btn-xs btn-success">
-                    Thêm
-                  </a>
-                </th>
-              </tr>
-              <?php foreach ($brand as $brand): ?>
+            <table id="brandTable" class="display table table-bordered">
+              <thead>
                 <tr>
-                  <td><?php echo $brand['id'] ?></td>
-                  <td><img src="<?php echo $siteUrl . $brand['image']?>" class='img-thumbnail' width=300px></td>
-                  <td><?php echo $brand['name'] ?></td>
-                  <td><?php echo $brand['url'] ?></td>
-                  <td>
-                    <a href="<?= $adminUrl?>brand/edit.php?id=<?= $brand['id']?>"
-                      class="btn btn-xs btn-info">
-                      Chỉnh sửa
+                  <th style="width: 10px">#</th>
+                  <th width="300px">Logo thương hiệu</th>
+                  <th width="300px">Tên thương hiệu</th>
+                  <th>URL</th>
+                  <th style="width: 120px">
+                    <a href="<?= $adminUrl?>brand/add.php"
+                      class="btn btn-xs btn-success">
+                      Thêm
                     </a>
-                    <a href="javascript:void(0)" linkurl="<?= $adminUrl?>brand/remove.php?id=<?= $brand['id']?>"
-                      class="btn btn-xs btn-danger btn-remove">
-                      Xoá
-                    </a>
-                  </td>
+                  </th>
                 </tr>
-              <?php endforeach ?>
-            </tbody></table>
+              </thead>
+              <tbody>
+                <?php foreach ($brand as $brand): ?>
+                  <tr>
+                    <td><?php echo $brand['id'] ?></td>
+                    <td><img src="<?php echo $siteUrl . $brand['image']?>" class='img-thumbnail' width=300px></td>
+                    <td><?php echo $brand['name'] ?></td>
+                    <td><?php echo $brand['url'] ?></td>
+                    <td>
+                      <a href="<?= $adminUrl?>brand/edit.php?id=<?= $brand['id']?>"
+                        class="btn btn-xs btn-info">
+                        Chỉnh sửa
+                      </a>
+                      <a href="javascript:void(0)" linkurl="<?= $adminUrl?>brand/remove.php?id=<?= $brand['id']?>"
+                        class="btn btn-xs btn-danger btn-remove">
+                        Xoá
+                      </a>
+                    </td>
+                  </tr>
+                <?php endforeach ?>
+              </tbody></table>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer clearfix">
+            </div>
           </div>
-          <!-- /.box-body -->
-          <div class="box-footer clearfix">
-            <ul class="pagination pagination-sm no-margin pull-right">
-              <li><a href="#">«</a></li>
-              <li><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">»</a></li>
-            </ul>
-          </div>
-        </div>
-      </section>
-      <!-- /.content -->
+        </section>
+        <!-- /.content -->
+      </div>
+      <?php 
+      include $path.'_share/footer.php';
+      ?>
+
+      <!-- Control Sidebar -->
+
     </div>
+    <!-- ./wrapper -->
+
     <?php 
-    include $path.'_share/footer.php';
+    include $path.'_share/js_assets.php';
     ?>
-
-    <!-- Control Sidebar -->
-
-  </div>
-  <!-- ./wrapper -->
-
-  <?php 
-  include $path.'_share/js_assets.php';
-  ?>
-  <script type="text/javascript">
-    <?php 
+    <script type="text/javascript">
+      <?php 
       if (isset($_GET['success']) && $_GET['success'] == true) {
         ?>
-          alert('Tạo mới sản phẩm thành công');
+        swal({
+          title: "Xác nhận",
+          text: "Thương hiệu đã được thêm",
+          icon: "success",
+          button: false,
+        });
         <?php
       }
-    ?>
-    $('.btn-remove').on('click',function() {
-      var conf = confirm("Bạn có xác nhận muốn xóa danh mục này hay không?");
-      if (conf) {
-        window.location.href = $(this).attr('linkurl');
+      if (isset($_GET['edit-success']) && $_GET['edit-success'] == true) {
+        ?>
+        swal({
+          title: "Xác nhận",
+          text: "Thương hiệu đã được sửa",
+          icon: "success",
+          button: false,
+        });
+        <?php
       }
-    })
+      ?>
+      $('.btn-remove').on('click',function() {
+        swal({
+          title: "Bạn có muốn xóa thương hiệu này không?",
+          text: "Một khi đã xóa. Thương hiệu sẽ không thể quay lại",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            window.location.href = $(this).attr('linkurl');
+            swal("Bạn có muốn xóa thương hiệu này không?", {
+              icon: "success",
+            });
+          } 
+          else {
+            swal("Bạn đã hủy việc xóa thương hiệu");
+          }
+        });
+      })
+    </script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+      $('#brandTable').DataTable( {
+        "pagingType": "full_numbers"
+      });
+    });
   </script>
-</body>
-</html>
+  </body>
+  </html>

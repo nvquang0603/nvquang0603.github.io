@@ -26,7 +26,7 @@
 					$act = $count == 0 ? "active" : "";						
 				?>
 					<div class="carousel-item <?= $act?>">
-						<img class="d-block w-100" src="<?= $slide['image']?>">
+						<a href="<?= $slide['url']?>"><img class="d-block w-100" src="<?= $slide['image']?>"></a>
 					</div>
 					
 				<?php 

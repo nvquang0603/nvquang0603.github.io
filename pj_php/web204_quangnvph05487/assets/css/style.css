@@ -3,6 +3,22 @@
 		    margin: 0;
 		    box-sizing: border-box;
 		}
+
+		.not-found {
+		    height: 500px;
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		}
+
+		h1 {
+		    line-height: 50px;
+		}
+
+		img.out-of-stock-ribbon {
+		    width: 40%;
+		    position: absolute;
+		}
 		.row.form-row {
 		    margin-bottom: 30px;
 		}
@@ -65,7 +81,9 @@
 		h3 {
 		    margin-bottom: 30px;
 		}
-
+		textarea {
+			resize: none;
+		}
 		.about-content.col-md-8 {
 		    padding: 0 30px 30px 30px;
 		    display: flex;

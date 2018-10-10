@@ -8,7 +8,11 @@
 		header("location: " . $adminUrl . "san-pham");
 		die;
 	}
-	unlink($path.$path.$product['image']);
+	if ($product['image'] != "assets/images/sample-product.jpg") {
+		unlink($path.$path.$product['image']);
+	}
+	$sql = "delete from comments where product_id = $productId";
+	getSimpleQuery($sql);
 	$sql = "delete from products where id = $productId";
 	getSimpleQuery($sql);
 	header("location: " . $adminUrl . "san-pham");

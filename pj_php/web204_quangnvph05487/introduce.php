@@ -46,9 +46,10 @@
 				?>
 				<div class="single-card">
 				<div class="card">
+					<a href="<?= $siteUrl?>product_detail.php?id=<?= $product['id']?>"><?php inOutStock($product['status']) ?></a>
 				  <a href="<?= $siteUrl?>product_detail.php?id=<?= $product['id']?>"><img class="card-img-top" src="<?php echo $product['image']?>" alt="Card image cap"></a>
 				  <div class="card-body">
-				    <a href="<?= $siteUrl?>product_detail.php?id=<?= $product['id']?>"><h5 class="card-title"><?php echo $product['product_name'] ?><?php inOutStock($product['status']) ?></h5></a>
+				    <a href="<?= $siteUrl?>product_detail.php?id=<?= $product['id']?>"><h5 class="card-title"><?php echo $product['product_name'] ?></h5></a>
 				    <p class="card-text list-price"><?php echo $product['list_price'] ?></p>
 				    <p class="cart-text sale-price"><?php echo $product['sell_price']; ?></p>
 				    <a href="<?= $siteUrl?>product_detail.php?id=<?= $product['id']?>" class="btn btn-primary">Xem chi tiết</a>

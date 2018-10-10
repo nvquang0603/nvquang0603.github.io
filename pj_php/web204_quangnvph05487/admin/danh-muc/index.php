@@ -1,7 +1,12 @@
 <?php 
+session_start();
 $path = '../';
 require_once $path.$path.'assets/commons/utils.php';
-$sqlCateProduct = 'select categories.*, (select count(*) from products where cate_id = categories.id) as total_product from categories';
+$sqlCateProduct =   'select categories.*, 
+(select count(*) 
+from products
+where cate_id = categories.id) as total_product 
+from categories';
 $cateProduct = getSimpleQuery($sqlCateProduct,true);
 ?>
 
@@ -55,83 +60,116 @@ $cateProduct = getSimpleQuery($sqlCateProduct,true);
           </div>
           <!-- /.box-header -->
           <div class="box-body">
-            <table class="table table-bordered">
-              <tbody><tr>
-                <th style="width: 10px">#</th>
-                <th>Tên</th>
-                <th>Sản phẩm</th>
-                <th style="width: 240px">Miêu tả</th>
-                <th style="width: 120px">
-                  <a href="<?= $adminUrl?>danh-muc/add.php"
-                    class="btn btn-xs btn-success">
-                    Thêm
-                  </a>
-                </th>
-              </tr>
-              <?php foreach ($cateProduct as $cate): ?>
+            <table id="categoryTable" class="display table table-bordered">
+              <thead>
                 <tr>
-                  <td><?php echo $cate['id'] ?></td>
-                  <td><?php echo $cate['name'] ?></td>
-                  <td>
-                    <?php echo $cate['total_product'] ?>
-                  </td>
-                  <td>
-                    <?php echo $cate['desc'] ?>
-                  </td>
-                  <td>
-                    <a href="<?= $adminUrl?>danh-muc/edit.php?id=<?= $cate['id']?>"
-                      class="btn btn-xs btn-info">
-                      Chỉnh sửa
+                  <th style="width: 10px">#</th>
+                  <th>Tên</th>
+                  <th>Sản phẩm</th>
+                  <th style="width: 240px">Miêu tả</th>
+                  <th style="width: 120px">
+                    <a href="<?= $adminUrl?>danh-muc/add.php"
+                      class="btn btn-xs btn-success">
+                      Thêm
                     </a>
-                    <a href="javascript:void(0)" linkurl="<?= $adminUrl?>danh-muc/remove.php?id=<?= $cate['id']?>"
-                      class="btn btn-xs btn-danger btn-remove">
-                      Xoá
-                    </a>
-                  </td>
+                  </th>
                 </tr>
-              <?php endforeach ?>
-            </tbody></table>
+              </thead>
+              <tbody>
+                <?php foreach ($cateProduct as $cate): ?>
+                  <tr>
+                    <td><?php echo $cate['id'] ?></td>
+                    <td><a href="<?php echo $siteUrl ?>single-category.php?id=<?php echo $cate['id']?>" target="blank"><?php echo $cate['name'] ?></a></td>
+                    <td>
+                      <?php echo $cate['total_product'] ?>
+                    </td>
+                    <td>
+                      <?php echo $cate['description'] ?>
+                    </td>
+                    <td>
+                      <a href="<?= $adminUrl?>danh-muc/edit.php?id=<?= $cate['id']?>"
+                        class="btn btn-xs btn-info">
+                        Chỉnh sửa
+                      </a>
+                      <a href="javascript:void(0)" linkurl="<?= $adminUrl?>danh-muc/remove.php?id=<?= $cate['id']?>"
+                        class="btn btn-xs btn-danger btn-remove">
+                        Xoá
+                      </a>
+                    </td>
+                  </tr>
+                <?php endforeach ?>
+              </tbody></table>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer clearfix">
+              
+            </div>
           </div>
-          <!-- /.box-body -->
-          <div class="box-footer clearfix">
-            <ul class="pagination pagination-sm no-margin pull-right">
-              <li><a href="#">«</a></li>
-              <li><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">»</a></li>
-            </ul>
-          </div>
-        </div>
-      </section>
-      <!-- /.content -->
+        </section>
+        <!-- /.content -->
+      </div>
+      <?php 
+      include $path.'_share/footer.php';
+      ?>
+
+      <!-- Control Sidebar -->
+
     </div>
+    <!-- ./wrapper -->
+
     <?php 
-    include $path.'_share/footer.php';
+    include $path.'_share/js_assets.php';
     ?>
-
-    <!-- Control Sidebar -->
-
-  </div>
-  <!-- ./wrapper -->
-
-  <?php 
-  include $path.'_share/js_assets.php';
-  ?>
-  <script type="text/javascript">
-    <?php 
+    <script type="text/javascript">
+      <?php 
       if (isset($_GET['success']) && $_GET['success'] == true) {
         ?>
-          alert('Tạo mới danh mục thành công');
+        swal({
+          title: "Xác nhận",
+          text: "Danh mục đã được thêm",
+          icon: "success",
+          button: false,
+        });
         <?php
       }
-    ?>
-    $('.btn-remove').on('click',function() {
-      var conf = confirm("Bạn có xác nhận muốn xóa danh mục này hay không?");
-      if (conf) {
-        window.location.href = $(this).attr('linkurl');
+      if (isset($_GET['edit-success']) && $_GET['edit-success'] == true) {
+        ?>
+        swal({
+          title: "Xác nhận",
+          text: "Danh mục đã được sửa",
+          icon: "success",
+          button: false,
+        });
+        <?php
       }
-    })
+      ?>
+      $('.btn-remove').on('click',function() {
+        swal({
+          title: "Bạn có muốn xóa danh mục này không?",
+          text: "Một khi đã xóa. Danh mục sẽ không thể quay lại",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            window.location.href = $(this).attr('linkurl');
+            swal("Bạn có muốn xóa danh mục này không?", {
+              icon: "success",
+            });
+          } 
+          else {
+            swal("Bạn đã hủy việc xóa danh mục");
+          }
+        });
+      })
+    </script>
+    <script type="text/javascript">
+    $(document).ready(function() {
+      $('#categoryTable').DataTable( {
+        "pagingType": "full_numbers"
+      });
+    });
   </script>
-</body>
-</html>
+  </body>
+  </html>
