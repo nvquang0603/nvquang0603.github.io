@@ -2,7 +2,11 @@
 session_start();
 $path = '../';
 require_once $path.$path.'assets/commons/utils.php';
-$sqlProduct = 'select *, products.id as pid from products inner join categories on products.cate_id = categories.id order by pid';
+$sqlProduct = 'select *, 
+              products.id as pid 
+                from products inner join categories 
+                    on products.cate_id = categories.id 
+                order by pid';
 $product = getSimpleQuery($sqlProduct,true);
 ?>
 <!DOCTYPE html>
@@ -51,7 +55,7 @@ $product = getSimpleQuery($sqlProduct,true);
       <section class="content">
         <div class="box">
           <div class="box-header with-border">
-            <h3 class="box-title">Bordered Table</h3>
+            <h3 class="box-title">Quản lý sản phẩm</h3>
           </div>
           <!-- /.box-header -->
           <div class="box-body">
@@ -185,7 +189,8 @@ $product = getSimpleQuery($sqlProduct,true);
   <script type="text/javascript">
     $(document).ready(function() {
       $('#productTable').DataTable( {
-        "pagingType": "full_numbers"
+        "pagingType": "full_numbers",
+        "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Tất cả"]]
       });
     });
   </script>

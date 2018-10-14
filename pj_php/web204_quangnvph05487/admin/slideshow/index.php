@@ -1,9 +1,13 @@
 <?php 
-session_start();
-$path = '../';
-require_once $path.$path.'assets/commons/utils.php';
-$sqlSlide = 'select * from slideshows order by order_number';
-$slide = getSimpleQuery($sqlSlide,true);
+    session_start();
+    $path = '../';
+    require_once $path.$path.'assets/commons/utils.php';
+    if($_SESSION['login']['role']!=1) {
+      header('location: '.$adminUrl . '?errAdmin=Chỉ Admin mới truy cập được trang này');
+      die;
+    }
+    $sqlSlide = 'select * from slideshows order by order_number';
+    $slide = getSimpleQuery($sqlSlide,true);
 ?>
 <!DOCTYPE html>
 <html>
@@ -51,7 +55,7 @@ $slide = getSimpleQuery($sqlSlide,true);
       <section class="content">
         <div class="box">
           <div class="box-header with-border">
-            <h3 class="box-title">Bordered Table</h3>
+            <h3 class="box-title">Quản lý Slideshow</h3>
           </div>
           <!-- /.box-header -->
           <div class="box-body">

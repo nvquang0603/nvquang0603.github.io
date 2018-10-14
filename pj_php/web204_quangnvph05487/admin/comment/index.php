@@ -2,7 +2,11 @@
 session_start();
 $path = '../';
 require_once $path.$path.'assets/commons/utils.php';
-$sqlComment = 'select *, comments.id as cid from comments inner join products on comments.product_id = products.id order by cid';
+$sqlComment = 'select *, 
+              comments.id as cid from 
+                comments inner join products 
+                  on comments.product_id = products.id 
+              order by cid';
 $comment = getSimpleQuery($sqlComment,true);
 ?>
 <!DOCTYPE html>
@@ -51,7 +55,7 @@ $comment = getSimpleQuery($sqlComment,true);
       <section class="content">
         <div class="box">
           <div class="box-header with-border">
-            <h3 class="box-title">Bordered Table</h3>
+            <h3 class="box-title">Quản lý bình luận</h3>
           </div>
           <!-- /.box-header -->
           <div class="box-body">

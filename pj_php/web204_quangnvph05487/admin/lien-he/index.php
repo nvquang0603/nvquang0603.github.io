@@ -1,14 +1,9 @@
 <?php 
-    session_start();
-    $path = '../';
-    require_once $path.$path.'assets/commons/utils.php';
-    if($_SESSION['login']['role']!=1) {
-      header('location: '.$adminUrl . '?errAdmin=Chỉ Admin mới truy cập được trang này');
-      die;
-    }
-    $sqlBrand = 'select * from brands 
-                order by id';
-    $brand = getSimpleQuery($sqlBrand,true);
+session_start();
+$path = '../';
+require_once $path.$path.'assets/commons/utils.php';
+$sqlContact = 'select * from contacts order by id';
+$contact = getSimpleQuery($sqlContact,true);
 ?>
 <!DOCTYPE html>
 <html>
@@ -16,7 +11,7 @@
   <?php 
   include $path.'_share/style_assets.php';
   ?>
-  <title>AdminLTE 2 | Thương hiệu</title>
+  <title>AdminLTE 2 | Liên hệ</title>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -29,7 +24,6 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
   <div class="wrapper">
-
     <?php 
     include $path.'_share/header.php';
     ?>
@@ -56,19 +50,20 @@
       <section class="content">
         <div class="box">
           <div class="box-header with-border">
-            <h3 class="box-title">Quản lý thương hiệu</h3>
+            <h3 class="box-title">Quản lý liên hệ</h3>
           </div>
           <!-- /.box-header -->
           <div class="box-body">
-            <table id="brandTable" class="display table table-bordered">
+            <table id="contactTable" class="display table table-bordered">
               <thead>
                 <tr>
                   <th style="width: 10px">#</th>
-                  <th width="300px">Logo thương hiệu</th>
-                  <th width="300px">Tên thương hiệu</th>
-                  <th>URL</th>
+                  <th width="200px">Họ và tên</th>
+                  <th>Email</th>
+                  <th>SĐT</th>
+                  <th>Nội dung</th>
                   <th style="width: 120px">
-                    <a href="<?= $adminUrl?>brand/add.php"
+                    <a href="<?= $adminUrl?>lien-he/add.php"
                       class="btn btn-xs btn-success">
                       Thêm
                     </a>
@@ -76,18 +71,19 @@
                 </tr>
               </thead>
               <tbody>
-                <?php foreach ($brand as $brand): ?>
+                <?php foreach ($contact as $contact): ?>
                   <tr>
-                    <td><?php echo $brand['id'] ?></td>
-                    <td><img src="<?php echo $siteUrl . $brand['image']?>" class='img-thumbnail' width=300px></td>
-                    <td><?php echo $brand['name'] ?></td>
-                    <td><?php echo $brand['url'] ?></td>
+                    <td><?php echo $contact['id'] ?></td>
+                    <td><?php echo $contact['fullname'] ?></td>
+                    <td><?php echo $contact['email'] ?></td>
+                    <td><?php echo $contact['phone_number'] ?></td>
+                    <td><?php echo htmlentities($contact['content']) ?></td>
                     <td>
-                      <a href="<?= $adminUrl?>brand/edit.php?id=<?= $brand['id']?>"
+                      <a href="<?= $adminUrl?>lien-he/edit.php?id=<?= $contact['id']?>"
                         class="btn btn-xs btn-info">
                         Chỉnh sửa
                       </a>
-                      <a href="javascript:void(0)" linkurl="<?= $adminUrl?>brand/remove.php?id=<?= $brand['id']?>"
+                      <a href="javascript:void(0)" linkurl="<?= $adminUrl?>lien-he/remove.php?id=<?= $contact['id']?>"
                         class="btn btn-xs btn-danger btn-remove">
                         Xoá
                       </a>
@@ -121,7 +117,7 @@
         ?>
         swal({
           title: "Xác nhận",
-          text: "Thương hiệu đã được thêm",
+          text: "Liên hệ đã được thêm",
           icon: "success",
           button: false,
         });
@@ -131,8 +127,28 @@
         ?>
         swal({
           title: "Xác nhận",
-          text: "Thương hiệu đã được sửa",
+          text: "Liên hệ đã được sửa",
           icon: "success",
+          button: false,
+        });
+        <?php
+      }
+      if (isset($_GET['remove-success']) && $_GET['remove-success'] == true) {
+        ?>
+        swal({
+          title: "Xác nhận",
+          text: "Đã xóa liên hệ",
+          icon: "success",
+          button: false,
+        });
+        <?php
+      }
+      if (isset($_GET['errAdmin'])) {
+        ?>
+        swal({
+          title: "Cảnh báo",
+          text: "<?php echo $_GET['errAdmin']?>",
+          icon: "warning",
           button: false,
         });
         <?php
@@ -140,8 +156,8 @@
       ?>
       $('.btn-remove').on('click',function() {
         swal({
-          title: "Bạn có muốn xóa thương hiệu này không?",
-          text: "Một khi đã xóa. Thương hiệu sẽ không thể quay lại",
+          title: "Bạn có muốn xóa liên hệ này không?",
+          text: "Một khi đã xóa. Liên hệ sẽ không thể quay lại",
           icon: "warning",
           buttons: true,
           dangerMode: true,
@@ -149,22 +165,22 @@
         .then((willDelete) => {
           if (willDelete) {
             window.location.href = $(this).attr('linkurl');
-            swal("Bạn có muốn xóa thương hiệu này không?", {
+            swal("Bạn có muốn xóa liên hệ này không?", {
               icon: "success",
             });
           } 
           else {
-            swal("Bạn đã hủy việc xóa thương hiệu");
+            swal("Bạn đã hủy việc xóa liên hệ");
           }
         });
       })
     </script>
     <script type="text/javascript">
-    $(document).ready(function() {
-      $('#brandTable').DataTable( {
-        "pagingType": "full_numbers"
+      $(document).ready(function() {
+        $('#contactTable').DataTable( {
+          "pagingType": "full_numbers"
+        });
       });
-    });
-  </script>
+    </script>
   </body>
   </html>

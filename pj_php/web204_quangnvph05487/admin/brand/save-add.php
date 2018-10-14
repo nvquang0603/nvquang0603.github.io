@@ -1,6 +1,11 @@
 <?php 
+	session_start();
 	$path = '../';
 	require_once $path.$path.'assets/commons/utils.php';
+	if($_SESSION['login']['role']!=1) {
+      header('location: '.$adminUrl . '?errAdmin=Chỉ Admin mới truy cập được trang này');
+      die;
+    }
 	if ($_SERVER['REQUEST_METHOD'] != 'POST') {
 		header('location: '. $adminUrl . 'brand');
 		die;

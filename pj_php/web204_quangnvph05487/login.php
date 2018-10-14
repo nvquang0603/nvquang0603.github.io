@@ -37,14 +37,16 @@
     <div class="login-box-body">
       <p class="login-box-msg">Đăng nhập để vào trang quản trị</p>
 
-      <form action="post-login.php" method="post">
+      <form action="post-login.php" method="post" name="login-form" onsubmit="return validateFormSubmit()">
         <div class="form-group has-feedback">
           <input type="email" class="form-control" name="email" placeholder="Email">
           <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+          <span class="text-danger" id="errEmail"></span>
         </div>
         <div class="form-group has-feedback">
           <input type="password" class="form-control" name="password" placeholder="Password">
           <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+          <span class="text-danger" id="errPw"></span>
         </div>
         <div class="row">
           <div class="col-xs-8">
@@ -81,7 +83,7 @@
                 title: "Cảnh báo",
                 text: "<?php echo $_GET['msg']?>",
                 icon: "warning",
-                button: false,
+                dangerMode: true,
               });
             <?php
           }
@@ -106,6 +108,60 @@
         increaseArea: '20%' /* optional */
       });
     });
+  </script>
+  <script type="text/javascript">
+    function validateFormSubmit() {
+      var email = document.forms["login-form"]["email"];
+      var password = document.forms["login-form"]["password"];
+      var errEmailBack = document.getElementById("errEmailBack");
+      var errPwBack = document.getElementById("errPwBack");
+      if (email.value == "") {
+        if (errEmailBack==null) {
+          swal({
+            title: "Bạn chưa nhập Email",
+            text: "...kiểm tra lại nhé!",
+            icon: "warning",
+            dangerMode: true,
+          });
+          document.getElementById("errEmail").innerHTML = "Vui lòng nhập đủ email và mật khẩu";
+          return false;
+        }
+        else {
+          swal({
+            title: "Bạn chưa nhập Email",
+            text: "...kiểm tra lại nhé!",
+            icon: "warning",
+            dangerMode: true,
+          });
+          document.getElementById("errEmail").innerHTML = "Vui lòng nhập đủ email và mật khẩu";
+          errNameBack.style.display = "none";
+          return false;
+        }
+      }
+      if (password.value == "") {
+        if (errPwBack==null) {
+          swal({
+            title: "Bạn chưa nhập mật khẩu",
+            text: "...kiểm tra lại nhé!",
+            icon: "warning",
+            dangerMode: true,
+          });
+          document.getElementById("errPw").innerHTML = "Vui lòng nhập đủ email và mật khẩu";
+          return false;
+        }
+        else {
+          swal({
+            title: "Bạn chưa nhập mật khẩu",
+            text: "...kiểm tra lại nhé!",
+            icon: "warning",
+            dangerMode: true,
+          });
+          document.getElementById("errPw").innerHTML = "Vui lòng nhập đủ email và mật khẩu";
+          errPwBack.style.display = "none";
+          return false;
+        }
+      }
+    }
   </script>
 </body>
 </html>

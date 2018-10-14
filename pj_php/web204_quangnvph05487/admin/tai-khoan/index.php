@@ -2,13 +2,12 @@
     session_start();
     $path = '../';
     require_once $path.$path.'assets/commons/utils.php';
+    $sqlUser = 'select * from users order by id';
+    $user = getSimpleQuery($sqlUser,true);
     if($_SESSION['login']['role']!=1) {
       header('location: '.$adminUrl . '?errAdmin=Chỉ Admin mới truy cập được trang này');
       die;
     }
-    $sqlBrand = 'select * from brands 
-                order by id';
-    $brand = getSimpleQuery($sqlBrand,true);
 ?>
 <!DOCTYPE html>
 <html>
@@ -16,7 +15,7 @@
   <?php 
   include $path.'_share/style_assets.php';
   ?>
-  <title>AdminLTE 2 | Thương hiệu</title>
+  <title>AdminLTE 2 | Tài khoản</title>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -29,7 +28,6 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
   <div class="wrapper">
-
     <?php 
     include $path.'_share/header.php';
     ?>
@@ -56,19 +54,20 @@
       <section class="content">
         <div class="box">
           <div class="box-header with-border">
-            <h3 class="box-title">Quản lý thương hiệu</h3>
+            <h3 class="box-title">Quản lý tài khoản</h3>
           </div>
           <!-- /.box-header -->
           <div class="box-body">
-            <table id="brandTable" class="display table table-bordered">
+            <table id="userTable" class="display table table-bordered">
               <thead>
                 <tr>
                   <th style="width: 10px">#</th>
-                  <th width="300px">Logo thương hiệu</th>
-                  <th width="300px">Tên thương hiệu</th>
-                  <th>URL</th>
+                  <th width="200px">Avatar</th>
+                  <th>Email</th>
+                  <th>Họ và tên</th>
+                  <th>Phân quyền</th>
                   <th style="width: 120px">
-                    <a href="<?= $adminUrl?>brand/add.php"
+                    <a href="<?= $adminUrl?>tai-khoan/add.php"
                       class="btn btn-xs btn-success">
                       Thêm
                     </a>
@@ -76,21 +75,48 @@
                 </tr>
               </thead>
               <tbody>
-                <?php foreach ($brand as $brand): ?>
+                <?php foreach ($user as $user): ?>
                   <tr>
-                    <td><?php echo $brand['id'] ?></td>
-                    <td><img src="<?php echo $siteUrl . $brand['image']?>" class='img-thumbnail' width=300px></td>
-                    <td><?php echo $brand['name'] ?></td>
-                    <td><?php echo $brand['url'] ?></td>
+                    <td><?php echo $user['id'] ?></td>
+                    <td><img src="<?php echo $siteUrl . $user['avatar']?>" class='img-thumbnail' width=300px></td>
+                    <td><?php echo $user['email'] ?></td>
+                    <td><?php echo $user['fullname'] ?></td>
                     <td>
-                      <a href="<?= $adminUrl?>brand/edit.php?id=<?= $brand['id']?>"
+                      <?php
+                        if ($user['role']==1) {
+                          echo "Admin";
+                        }
+                        else if($user['role']==2){
+                          echo "Quản trị viên";
+                        }
+                        else {
+                          echo "Người dùng";
+                        }
+                      ?>
+                    </td>
+                    <td>
+                      <a href="<?= $adminUrl?>tai-khoan/edit.php?id=<?= $user['id']?>"
                         class="btn btn-xs btn-info">
                         Chỉnh sửa
                       </a>
-                      <a href="javascript:void(0)" linkurl="<?= $adminUrl?>brand/remove.php?id=<?= $brand['id']?>"
-                        class="btn btn-xs btn-danger btn-remove">
-                        Xoá
-                      </a>
+                      <?php 
+                      if ($user['role']==1) {
+                        ?>
+                        <a href="javascript:void(0)" linkurl="<?= $adminUrl?>tai-khoan/remove.php?id=<?= $user['id']?>"
+                          class="btn btn-xs btn-danger btn-remove disabled">
+                          Xoá
+                        </a>
+                        <?php
+                      }
+                      else {
+                        ?>
+                        <a href="javascript:void(0)" linkurl="<?= $adminUrl?>tai-khoan/remove.php?id=<?= $user['id']?>"
+                          class="btn btn-xs btn-danger btn-remove">
+                          Xoá
+                        </a>
+                        <?php
+                      }
+                      ?>                      
                     </td>
                   </tr>
                 <?php endforeach ?>
@@ -121,7 +147,7 @@
         ?>
         swal({
           title: "Xác nhận",
-          text: "Thương hiệu đã được thêm",
+          text: "Tài khoản đã được thêm",
           icon: "success",
           button: false,
         });
@@ -131,8 +157,28 @@
         ?>
         swal({
           title: "Xác nhận",
-          text: "Thương hiệu đã được sửa",
+          text: "Tài khoản đã được sửa",
           icon: "success",
+          button: false,
+        });
+        <?php
+      }
+      if (isset($_GET['remove-success']) && $_GET['remove-success'] == true) {
+        ?>
+        swal({
+          title: "Xác nhận",
+          text: "Đã xóa tài khoản",
+          icon: "success",
+          button: false,
+        });
+        <?php
+      }
+      if (isset($_GET['errAdmin'])) {
+        ?>
+        swal({
+          title: "Cảnh báo",
+          text: "<?php echo $_GET['errAdmin']?>",
+          icon: "warning",
           button: false,
         });
         <?php
@@ -140,8 +186,8 @@
       ?>
       $('.btn-remove').on('click',function() {
         swal({
-          title: "Bạn có muốn xóa thương hiệu này không?",
-          text: "Một khi đã xóa. Thương hiệu sẽ không thể quay lại",
+          title: "Bạn có muốn xóa tài khoản này không?",
+          text: "Một khi đã xóa. Tài khoản sẽ không thể quay lại",
           icon: "warning",
           buttons: true,
           dangerMode: true,
@@ -149,19 +195,19 @@
         .then((willDelete) => {
           if (willDelete) {
             window.location.href = $(this).attr('linkurl');
-            swal("Bạn có muốn xóa thương hiệu này không?", {
+            swal("Bạn có muốn xóa tài khoản này không?", {
               icon: "success",
             });
           } 
           else {
-            swal("Bạn đã hủy việc xóa thương hiệu");
+            swal("Bạn đã hủy việc xóa tài khoản");
           }
         });
       })
     </script>
     <script type="text/javascript">
     $(document).ready(function() {
-      $('#brandTable').DataTable( {
+      $('#userTable').DataTable( {
         "pagingType": "full_numbers"
       });
     });

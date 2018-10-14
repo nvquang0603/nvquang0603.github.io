@@ -51,7 +51,7 @@ $mostViewProducts = $stmt->fetchAll();
 			</div>
 			<div class="aside col-md-4">
 				<h3>Liên lạc với chúng tôi</h3>
-				<form name="contact-form" onsubmit="return validateFormSubmit()">
+				<form name="contact-form" method="post" action="submit-contact.php" onsubmit="return validateFormSubmit()">
 					<div class="form-group">
 						<label for="exampleFormControlInput1">Họ và tên</label>
 						<input type="text" class="form-control" id="exampleFormControlInput1" name="fullname" placeholder="Nguyễn Văn A">
@@ -73,7 +73,7 @@ $mostViewProducts = $stmt->fetchAll();
 						<span class="text-danger" id="errContent"></span>
 					</div>
 					<div class="form-group">
-						<button type="submit" class="btn btn-primary mb-2">Gửi</button>
+						<button type="submit" class="btn btn-primary mb-2 float-right">Gửi</button>
 					</div>
 				</form>
 			</div>
@@ -84,12 +84,25 @@ $mostViewProducts = $stmt->fetchAll();
 	include './assets/_share/footer.php';
 	?>
 	<script type="text/javascript">
+		<?php 
+		if (isset($_GET['success'])) {
+            ?>
+              swal({
+                title: "Chúc mừng",
+                text: "Bạn đã gửi liên hệ",
+                icon: "success",
+              });
+            <?php
+          }
+           ?>
+	</script>
+	<script type="text/javascript">
 		function validateFormSubmit() {
 			var fullname = document.forms["contact-form"]["fullname"];
 			var phone = document.forms["contact-form"]["phone"];
 			var email = document.forms["contact-form"]["email"];
 			var regExPhone = /(09|01[2|6|8|9])+([0-9]{8})\b/g;
-			var regExFullname = /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u;
+			var regExFullname = /^[a-zA-ZđàáảãạăằắẳặâầấẩẫậậèéẻẽẹêềếểễệìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵĐÀÁẢÃẠĂẰẮẶẲÂẦẤẨẪẬÈÉẺẼẸÊỀẾỂỄỆÌÍỈĨỊÒÓỎÕỌÔỒỐỔỖỘƠỜỚỞỠỢÙÚỦŨỤƯỪỨỬỮỰỲÝỶỸỴ ]+$/u;
 			var regExMail = /^[a-z][a-z0-9_\.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/;
 			var content = document.forms["contact-form"]["content"];
 			if (fullname.value == "") {

@@ -1,9 +1,13 @@
 <?php 
-session_start();
-$path = '../';
-require_once $path.$path.'assets/commons/utils.php';
-$sqlWebSetting = 'select * from web_settings';
-$web_setting = getSimpleQuery($sqlWebSetting);
+    session_start();
+    $path = '../';
+    require_once $path.$path.'assets/commons/utils.php';
+    if($_SESSION['login']['role']!=1) {
+      header('location: '.$adminUrl . '?errAdmin=Chỉ Admin mới truy cập được trang này');
+      die;
+    }
+    $sqlWebSetting = 'select * from web_settings';
+    $web_setting = getSimpleQuery($sqlWebSetting);
 ?>
 <!DOCTYPE html>
 <html>
@@ -11,7 +15,7 @@ $web_setting = getSimpleQuery($sqlWebSetting);
   <?php 
   include $path.'_share/style_assets.php';
   ?>
-  <title>AdminLTE 2 | Cấu hình web</title>
+  <title>Thông tin Website</title>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -61,7 +65,7 @@ $web_setting = getSimpleQuery($sqlWebSetting);
       <section class="content">
         <div class="box">
           <div class="box-header with-border">
-            <h3 class="box-title">Bordered Table</h3>
+            <h3 class="box-title">Quản lý thông tin Website</h3>
           </div>
           <!-- /.box-header -->
           <div class="box-body">

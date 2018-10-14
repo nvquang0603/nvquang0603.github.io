@@ -3,10 +3,10 @@ session_start();
 $path = '../';
 require_once $path.$path.'assets/commons/utils.php';
 $sqlCateProduct =   'select categories.*, 
-(select count(*) 
-from products
-where cate_id = categories.id) as total_product 
-from categories';
+                        (select count(*) 
+                            from products
+                        where cate_id = categories.id) as total_product 
+                    from categories';
 $cateProduct = getSimpleQuery($sqlCateProduct,true);
 ?>
 
@@ -56,7 +56,7 @@ $cateProduct = getSimpleQuery($sqlCateProduct,true);
       <section class="content">
         <div class="box">
           <div class="box-header with-border">
-            <h3 class="box-title">Bordered Table</h3>
+            <h3 class="box-title">Quản lý danh mục</h3>
           </div>
           <!-- /.box-header -->
           <div class="box-body">

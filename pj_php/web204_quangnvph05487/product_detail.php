@@ -19,7 +19,7 @@ function status($status) {
 		echo "Còn hàng";
 	}
 	else if ($status==0) {
-		echo "Tạm hết hàng";
+		echo "<span style='color:red;font-weight:bold'>Tạm hết hàng</span>";
 	}
 }
 ?>

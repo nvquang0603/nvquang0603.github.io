@@ -1,4 +1,5 @@
 <?php 
+	session_start();
 	$path = '../';
 	require_once $path.$path.'assets/commons/utils.php';
 	$id = $_POST['id'];
@@ -6,6 +7,10 @@
 		header('location: '. $adminUrl . 'slideshow');
 		die;
 	}
+	if($_SESSION['login']['role']!=1) {
+      header('location: '.$adminUrl . '?errAdmin=Chỉ Admin mới truy cập được trang này');
+      die;
+    }
 	$origin_image = $_POST['origin-image'];
 	$hotline = test_input($_POST['hotline']);
 	$email = test_input($_POST['email']);

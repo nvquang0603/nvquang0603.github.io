@@ -1,10 +1,14 @@
 <?php 
-  session_start();
-  $path = '../';
-  require_once $path.$path.'assets/commons/utils.php';
-  $brandId = $_GET['id'];
-  $sql = "select * from brands where id = $brandId";
-  $brand = getSimpleQuery($sql);
+    session_start();
+    $path = '../';
+    require_once $path.$path.'assets/commons/utils.php';
+    if($_SESSION['login']['role']!=1) {
+      header('location: '.$adminUrl . '?errAdmin=Chỉ Admin mới truy cập được trang này');
+      die;
+    }
+    $brandId = $_GET['id'];
+    $sql = "select * from brands where id = $brandId";
+    $brand = getSimpleQuery($sql);
 ?>
 <!DOCTYPE html>
 <html>
@@ -12,7 +16,7 @@
   <?php 
   include $path.'_share/style_assets.php';
   ?>
-  <title>AdminLTE 2 | Thêm thương hiệu</title>
+  <title>Sửa thương hiệu | <?php echo $brand['name'] ?></title>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -83,7 +87,7 @@
             </div>            
             <div class="text-right">
               <a href="<?= $adminUrl?>brand" class="btn btn-danger btn-md">Hủy</a>
-              <button type="submit" class="btn btn-md btn-primary">Tạo mới</button>
+              <button type="submit" class="btn btn-md btn-primary">Cập nhật</button>
             </div>
           </div>
         </form>

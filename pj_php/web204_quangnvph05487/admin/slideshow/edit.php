@@ -1,10 +1,14 @@
 <?php 
-session_start();
-$path = '../';
-require_once $path.$path.'assets/commons/utils.php';
-$slideId = $_GET['id'];
-$sql = "select * from slideshows where id = $slideId";
-$slide = getSimpleQuery($sql);
+    session_start();
+    $path = '../';
+    require_once $path.$path.'assets/commons/utils.php';
+    if($_SESSION['login']['role']!=1) {
+      header('location: '.$adminUrl . '?errAdmin=Chỉ Admin mới truy cập được trang này');
+      die;
+    }
+    $slideId = $_GET['id'];
+    $sql = "select * from slideshows where id = $slideId";
+    $slide = getSimpleQuery($sql);
 ?>
 <!DOCTYPE html>
 <html>
@@ -12,7 +16,7 @@ $slide = getSimpleQuery($sql);
   <?php 
   include $path.'_share/style_assets.php';
   ?>
-  <title>AdminLTE 2 | Thêm Slide</title>
+  <title>Sửa Slide</title>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -49,7 +53,7 @@ $slide = getSimpleQuery($sql);
       </section>
       <!-- Main content -->
       <section class="content">
-        <form action="<?= $adminUrl ?>slideshow/save-edit.php" method="post" enctype="multipart/form-data">
+        <form action="<?= $adminUrl ?>slideshow/save-edit.php" method="post" enctype="multipart/form-data" name="add-slide-form" onsubmit="return validateFormSubmit()">
           <input type="hidden" name="id" value="<?php echo $slide['id']?>">
           <div class="col-md-6">
             <div class="form-group">
@@ -58,7 +62,7 @@ $slide = getSimpleQuery($sql);
               <span class="text-danger" id="errOrderNumber"></span>
               <?php if (isset($_GET['errOrderNumber'])) {
                 ?>
-                <span class="text-danger" id="errOrderNumberBack"><?php echo $_GET['errOderNumber'] ?></span>
+                <span class="text-danger" id="errOrderNumberBack"><?php echo $_GET['errOrderNumber'] ?></span>
                 <?php
               } 
               ?>
@@ -124,6 +128,36 @@ $slide = getSimpleQuery($sql);
   include $path.'_share/js_assets.php';
   ?>
   <script type="text/javascript">
+  function validateFormSubmit() {
+    var orderNumber = document.forms["add-slide-form"]["ordernumber"];
+    var errOrderNumber = document.getElementById("errOrderNumber");
+    var errOrderNumberBack = document.getElementById("errOrderNumberBack");
+    if (orderNumber.value != parseInt(orderNumber.value)) {
+      if (errOrderNumberBack==null) {
+        swal({
+          title: "Dữ liệu sai định dạng!",
+          text: "...kiểm tra lại nhé!",
+          icon: "warning",
+          dangerMode: true,
+        });
+        document.getElementById("errOrderNumber").innerHTML = "Thứ tự phải là số nguyên";
+        return false;
+      }
+      else {
+        swal({
+          title: "Dữ liệu sai định dạng!",
+          text: "...kiểm tra lại nhé!",
+          icon: "warning",
+          dangerMode: true,
+        });
+        document.getElementById("errOrderNumber").innerHTML = "Thứ tự phải là số nguyên";
+        errOrderNumberBack.style.display = "none";
+        return false;
+      }
+    }
+  }
+</script>
+  <script type="text/javascript">
     $(document).ready(function(){
       $('[name="desc"]').wysihtml5();
       if (<?= $slide['status']?>==1) {
@@ -160,6 +194,7 @@ $slide = getSimpleQuery($sql);
      }
    });
  </script>
+ 
  <script type="text/javascript">
   hideSelectedChoice('selected_status','chose_status');
 </script>

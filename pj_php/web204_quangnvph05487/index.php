@@ -1,16 +1,16 @@
 <?php 
 require_once './assets/commons/utils.php';	
 $newProductsQuery = "select * 
-from " . TABLE_PRODUCT .
-" order by id desc
-limit 8";
+						from " . TABLE_PRODUCT .
+						" order by id desc
+						limit 8";
 $stmt = $conn->prepare($newProductsQuery);
 $stmt->execute();
 $newProducts = $stmt->fetchAll();
 $mostViewProductsQuery = "	select * 
-from " . TABLE_PRODUCT .
-" order by views desc
-limit 6";
+								from " . TABLE_PRODUCT .
+								" order by views desc
+								limit 6";
 $stmt = $conn->prepare($mostViewProductsQuery);
 $stmt->execute();
 $mostViewProducts = $stmt->fetchAll();

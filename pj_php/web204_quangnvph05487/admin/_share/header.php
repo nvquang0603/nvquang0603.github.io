@@ -46,8 +46,11 @@ else if ($_SESSION['login']['role'] > 2) {
           if ($_SESSION['login']['role']==1) {
             echo "Admin";
           }
+          else if ($_SESSION['login']['role']==2) {
+            echo "Quản trị viên";
+          }
           else {
-            echo "Member";
+            echo "Thành viên";
           }
           ?>
         </small>
@@ -56,9 +59,6 @@ else if ($_SESSION['login']['role'] > 2) {
     <!-- Menu Body -->
     <!-- Menu Footer-->
     <li class="user-footer">
-      <div class="pull-left">
-        <a href="#" class="btn btn-info btn-flat">Profile</a>
-      </div>
       <div class="pull-right">
         <a href="<?php echo $siteUrl ?>logout.php" class="btn btn-danger btn-flat">Đăng xuất</a>
       </div>

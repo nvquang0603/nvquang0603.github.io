@@ -10,6 +10,8 @@ session_start();
   $countComment = getSimpleQuery($countCommentQuery);
   $countUserQuery = "select count(*) as total from users";
   $countUser = getSimpleQuery($countUserQuery);
+  $countContactQuery = "select count(*) as total from contacts";
+  $countContact = getSimpleQuery($countContactQuery);
 ?>
 <!DOCTYPE html>
 <html>
@@ -91,7 +93,7 @@ session_start();
             <div class="small-box bg-yellow">
               <div class="inner">
                 <h3><?php echo $countComment['total'] ?></h3>
-                <p>Comments</p>
+                <p>Bình luận</p>
               </div>
               <div class="icon">
                 <i class="fa fa-comments"></i>
@@ -102,18 +104,39 @@ session_start();
           <!-- ./col -->
           <div class="col-lg-3 col-xs-6">
             <!-- small box -->
-            <div class="small-box bg-red">
+            <div class="small-box bg-purple">
               <div class="inner">
-                <h3><?php echo $countUser['total'] ?></h3>
-
-                <p>Unique Visitors</p>
+                <h3><?php echo $countContact['total'] ?></h3>
+                <p>Liên hệ</p>
               </div>
               <div class="icon">
-                <i class="fa fa-users"></i>
+                <i class="fa fa-inbox"></i>
               </div>
-              <a href="<?php echo $adminUrl?>users" class="small-box-footer">Xem thêm <i class="fa fa-arrow-circle-right"></i></a>
+              <a href="<?php echo $adminUrl?>lien-he" class="small-box-footer">Xem thêm <i class="fa fa-arrow-circle-right"></i></a>
             </div>
           </div>
+          <!-- ./col -->
+          <?php 
+          if($_SESSION['login']['role']==1) {
+            ?>
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-red">
+                <div class="inner">
+                  <h3><?php echo $countUser['total'] ?></h3>
+
+                  <p>Người dùng</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-users"></i>
+                </div>
+                <a href="<?php echo $adminUrl?>tai-khoan" class="small-box-footer">Xem thêm <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+            <?php
+          }
+          ?>
+          
           <!-- ./col -->
         </div>
       </section>
