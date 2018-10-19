@@ -10,7 +10,7 @@
 		<?php 
 			foreach ($brands as $brands) {
 		?>
-			<div><a href="#"><img src="<?php echo $brands['image']?>" alt="<?php echo $brands['name']?>" title="<?php echo $brands['name']?>"></a></div>
+			<div><a href="<?php echo $brands['url']?>" target="_blank"><img src="<?php echo $brands['image']?>" alt="<?php echo $brands['name']?>" title="<?php echo $brands['name']?>"></a></div>
 		<?php
 			}
 		?>

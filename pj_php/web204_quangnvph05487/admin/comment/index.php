@@ -73,7 +73,7 @@ $comment = getSimpleQuery($sqlComment,true);
                 <?php foreach ($comment as $comment): ?>
                   <tr>
                     <td><?php echo $comment['cid'] ?></td>
-                    <td><?php echo $comment['product_name'] ?></td>
+                    <td><a href="<?php echo $siteUrl ?>product_detail.php?id=<?php echo $comment['id']?>" target="_blank"><?php echo $comment['product_name'] ?></a></td>
                     <td>
                       <?php echo $comment['email'] ?>
                     </td>

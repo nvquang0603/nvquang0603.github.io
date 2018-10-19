@@ -23,7 +23,7 @@
 			  	<?php 
 				$count = 0;
 				foreach ($slides as $slide): 
-					$act = $count == 0 ? "active" : "";						
+					$act = $count == 0 ? "active" : "";	
 				?>
 					<div class="carousel-item <?= $act?>">
 						<a href="<?= $slide['url']?>"><img class="d-block w-100" src="<?= $slide['image']?>"></a>

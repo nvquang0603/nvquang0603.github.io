@@ -3,7 +3,6 @@
 ?>
 <!-- jQuery 3 -->
 <script src="<?php echo $adminAssetUrl?>bower_components/jquery/dist/jquery.min.js"></script>
-<script src="<?php echo $adminAssetUrl?>plugins/simplePagination/jquery.simplePagination.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="<?php echo $adminAssetUrl?>bower_components/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->

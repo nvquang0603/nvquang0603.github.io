@@ -134,22 +134,10 @@
     var errOrderNumberBack = document.getElementById("errOrderNumberBack");
     if (orderNumber.value != parseInt(orderNumber.value)) {
       if (errOrderNumberBack==null) {
-        swal({
-          title: "Dữ liệu sai định dạng!",
-          text: "...kiểm tra lại nhé!",
-          icon: "warning",
-          dangerMode: true,
-        });
         document.getElementById("errOrderNumber").innerHTML = "Thứ tự phải là số nguyên";
         return false;
       }
       else {
-        swal({
-          title: "Dữ liệu sai định dạng!",
-          text: "...kiểm tra lại nhé!",
-          icon: "warning",
-          dangerMode: true,
-        });
         document.getElementById("errOrderNumber").innerHTML = "Thứ tự phải là số nguyên";
         errOrderNumberBack.style.display = "none";
         return false;
@@ -159,7 +147,6 @@
 </script>
   <script type="text/javascript">
     $(document).ready(function(){
-      $('[name="desc"]').wysihtml5();
       if (<?= $slide['status']?>==1) {
         $("#stt-1").attr("checked", true);
       }

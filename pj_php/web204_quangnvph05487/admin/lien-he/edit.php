@@ -129,22 +129,10 @@ $getContact = getSimpleQuery($sql);
 			var regExMail = /^[a-z][a-z0-9_\.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/;
 			if (fullname.value == "") {
 				if (errFullname==null) {
-					swal({
-						title: "Dữ liệu sai định dạng!",
-						text: "...kiểm tra lại nhé!",
-						icon: "warning",
-						dangerMode: true,
-					});
 					document.getElementById("errFullname").innerHTML = "Không để trống họ và tên";
 					return false;
 				}
 				else {
-					swal({
-						title: "Dữ liệu sai định dạng!",
-						text: "...kiểm tra lại nhé!",
-						icon: "warning",
-						dangerMode: true,
-					});
 					document.getElementById("errFullname").innerHTML = "Không để trống họ và tên";
 					errFullname.style.display = "none";
 					return false;
@@ -152,22 +140,10 @@ $getContact = getSimpleQuery($sql);
 			}
 			else if (!regExName.test(fullname.value)) {
 				if (errFullname==null) {
-					swal({
-						title: "Lỗi: Họ tên không hợp lệ",
-						text: "...kiểm tra lại nhé!",
-						icon: "warning",
-						dangerMode: true,
-					});
 					document.getElementById("errFullname").innerHTML = "Định dạng họ và tên không đúng. Họ tên chỉ chứa chữ cái và khoảng trống";
 					return false;
 				}
 				else {
-					swal({
-						title: "Lỗi: Họ tên không hợp lệ",
-						text: "...kiểm tra lại nhé!",
-						icon: "warning",
-						dangerMode: true,
-					});
 					document.getElementById("errFullname").innerHTML = "Định dạng họ và tên không đúng. Họ tên chỉ chứa chữ cái và khoảng trống";
 					errFullname.style.display = "none";
 					return false;
@@ -185,22 +161,10 @@ $getContact = getSimpleQuery($sql);
 
 			if (email.value == "") {
 				if (errEmail==null) {
-					swal({
-						title: "Dữ liệu sai định dạng!",
-						text: "...kiểm tra lại nhé!",
-						icon: "warning",
-						dangerMode: true,
-					});
 					document.getElementById("errEmail").innerHTML = "Không để trống email";
 					return false;
 				}
 				else {
-					swal({
-						title: "Dữ liệu sai định dạng!",
-						text: "...kiểm tra lại nhé!",
-						icon: "warning",
-						dangerMode: true,
-					});
 					document.getElementById("errEmail").innerHTML = "Không để trống email";
 					errEmail.style.display = "none";
 					return false;
@@ -208,22 +172,10 @@ $getContact = getSimpleQuery($sql);
 			}
 			else if (!regExMail.test(email.value)) {
 				if (errEmail==null) {
-					swal({
-						title: "Cảnh báo: Địa chỉ Email không hợp lệ",
-						text: "...kiểm tra lại nhé!",
-						icon: "warning",
-						dangerMode: true,
-					});
 					document.getElementById("errEmail").innerHTML = "Định dạng email không đúng. Email thường có dạng example@company.com";
 					return false;
 				}
 				else {
-					swal({
-						title: "Cảnh báo: Địa chỉ Email không hợp lệ",
-						text: "...kiểm tra lại nhé!",
-						icon: "warning",
-						dangerMode: true,
-					});
 					document.getElementById("errEmail").innerHTML = "Định dạng email không đúng. Email thường có dạng example@company.com";
 					errEmail.style.display = "none";
 					return false;
@@ -249,22 +201,10 @@ $getContact = getSimpleQuery($sql);
 			}
 			else if (!regExPhone.test(phone.value)) {
 				if (errPhone==null) {
-					swal({
-						title: "Lỗi: Họ tên không hợp lệ",
-						text: "...kiểm tra lại nhé!",
-						icon: "warning",
-						dangerMode: true,
-					});
 					document.getElementById("errPhone").innerHTML = "Số điện thoại không hợp lệ";
 					return false;
 				}
 				else {
-					swal({
-						title: "Lỗi: Họ tên không hợp lệ",
-						text: "...kiểm tra lại nhé!",
-						icon: "warning",
-						dangerMode: true,
-					});
 					document.getElementById("errPhone").innerHTML = "Số điện thoại không hợp lệ";
 					errPhoneBack.style.display = "none";
 					return false;

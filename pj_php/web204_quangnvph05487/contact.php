@@ -1,20 +1,5 @@
 <?php 
-require_once './assets/commons/utils.php';	
-$newProductsQuery = "select * 
-from products 
-order by id desc
-limit 6";
-$stmt = $conn->prepare($newProductsQuery);
-$stmt->execute();
-
-$newProducts = $stmt->fetchAll();
-$mostViewProductsQuery = "	select * 
-from products
-order by views desc
-limit 6";
-$stmt = $conn->prepare($mostViewProductsQuery);
-$stmt->execute();
-$mostViewProducts = $stmt->fetchAll();
+	require_once './assets/commons/utils.php';	
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -106,22 +91,10 @@ $mostViewProducts = $stmt->fetchAll();
 			var regExMail = /^[a-z][a-z0-9_\.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/;
 			var content = document.forms["contact-form"]["content"];
 			if (fullname.value == "") {
-					swal({
-						title: "Dữ liệu sai định dạng!",
-						text: "...kiểm tra lại nhé!",
-						icon: "warning",
-						dangerMode: true,
-					});
 					document.getElementById("errFullname").innerHTML = "Không để trống họ và tên";
 					return false;
 			}
 			else if (!regExFullname.test(fullname.value)) {
-		    	swal({
-				  title: "Lỗi: Họ tên không hợp lệ",
-				  text: "...kiểm tra lại nhé!",
-				  icon: "warning",
-				  dangerMode: true,
-				});
 		    	document.getElementById("errFullname").innerHTML = "Định dạng Họ và tên không đúng. Họ tên chỉ chứa chữ cái và khoảng trống";
 		        return false;
 		    }
@@ -132,32 +105,14 @@ $mostViewProducts = $stmt->fetchAll();
 				document.getElementById("errPhone").innerHTML = "";
 			}
 			else if (!regExPhone.test(phone.value)) {
-				swal({
-				  title: "Lỗi: Số điện thoại không hợp lệ",
-				  text: "...kiểm tra lại nhé!",
-				  icon: "warning",
-				  dangerMode: true,
-				});
 		    	document.getElementById("errPhone").innerHTML = "Định dạng số điện thoại không đúng. Số điện thoại bắt đầu bằng số 0 và có độ dài 10-11 số";
 		        return false;
 			}
 			if (email.value == "") {
-					swal({
-						title: "Dữ liệu sai định dạng!",
-						text: "...kiểm tra lại nhé!",
-						icon: "warning",
-						dangerMode: true,
-					});
 					document.getElementById("errEmail").innerHTML = "Không để trống email";
 					return false;
 			}
 			else if (!regExMail.test(email.value)) {
-		    	swal({
-				  title: "Cảnh báo: Địa chỉ Email không hợp lệ",
-				  text: "...kiểm tra lại nhé!",
-				  icon: "warning",
-				  dangerMode: true,
-				});
 		    	document.getElementById("errEmail").innerHTML = "Định dạng email không đúng. Email thường có dạng example@company.com";
 		        return false;
 		    }
@@ -165,22 +120,10 @@ $mostViewProducts = $stmt->fetchAll();
 		    	document.getElementById("errEmail").innerHTML = "";
 		    }
 			if (content.value == "") {
-					swal({
-						title: "Dữ liệu sai định dạng!",
-						text: "...kiểm tra lại nhé!",
-						icon: "warning",
-						dangerMode: true,
-					});
 					document.getElementById("errContent").innerHTML = "Không để trống nội dung";
 					return false;
 			}
 			else if(content.value.length < 25 || content.value.length > 200) {
-					swal({
-						title: "Cảnh báo: Độ dài nội dung!",
-						text: "...kiểm tra lại nhé!",
-						icon: "warning",
-						dangerMode: true,
-					});
 					document.getElementById("errContent").innerHTML = "Nội dung có độ dài tối thiểu 25 ký tự và tối đa 200 ký tự";
 					return false;
 			}

@@ -91,22 +91,10 @@ require_once $path.$path.'assets/commons/utils.php';
       var errNameBack = document.getElementById("errNameBack");
       if (name.value == "") {
         if (errNameBack==null) {
-          swal({
-            title: "Bạn chưa điền tên danh mục!",
-            text: "...kiểm tra lại nhé!",
-            icon: "warning",
-            dangerMode: true,
-          });
           document.getElementById("errName").innerHTML = "Bạn chưa điền tên danh mục. Tên danh mục phải không được trùng với sản phẩm đã có";
           return false;
         }
         else {
-          swal({
-            title: "Bạn chưa điền tên danh mục!",
-            text: "...kiểm tra lại nhé!",
-            icon: "warning",
-            dangerMode: true,
-          });
           document.getElementById("errName").innerHTML = "Bạn chưa điền tên danh mục. Tên danh mục phải không được trùng với sản phẩm đã có";
           errNameBack.style.display = "none";
           return false;

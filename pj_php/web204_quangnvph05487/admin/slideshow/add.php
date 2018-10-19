@@ -71,8 +71,8 @@
               <label>Trạng thái</label>
               <br>
               <div class="checkbox icheck">
-                <label><input type="radio" name="status" value="1"> Còn hàng &nbsp;</label>
-                <label><input type="radio" name="status" value="0"> Hết hàng</label>
+                <label><input type="radio" name="status" value="1" checked> Hiển thị &nbsp;</label>
+                <label><input type="radio" name="status" value="0"> Ẩn</label>
               </div>
               <?php if (isset($_GET['errStatus'])) {
                 ?>
@@ -132,7 +132,7 @@
           increaseArea: '20%' /* optional */
         });
       });
-      var img = document.querySelector('[name="desc"]');
+      var img = document.querySelector('[name="image"]');
       img.onchange = function(){
         var anh = this.files[0];
         if(anh == undefined){
@@ -160,22 +160,10 @@
     var errOrderNumberBack = document.getElementById("errOrderNumberBack");
     if (orderNumber.value != parseInt(orderNumber.value)) {
       if (errOrderNumberBack==null) {
-        swal({
-          title: "Dữ liệu sai định dạng!",
-          text: "...kiểm tra lại nhé!",
-          icon: "warning",
-          dangerMode: true,
-        });
         document.getElementById("errOrderNumber").innerHTML = "Thứ tự phải là số nguyên";
         return false;
       }
       else {
-        swal({
-          title: "Dữ liệu sai định dạng!",
-          text: "...kiểm tra lại nhé!",
-          icon: "warning",
-          dangerMode: true,
-        });
         document.getElementById("errOrderNumber").innerHTML = "Thứ tự phải là số nguyên";
         errOrderNumberBack.style.display = "none";
         return false;

@@ -187,12 +187,6 @@ if($_SESSION['login']['role']!=1) {
 			var regExPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,25}$/;
 			if (fullname.value == "") {
 				if (errFullname==null) {
-					swal({
-						title: "Dữ liệu sai định dạng!",
-						text: "...kiểm tra lại nhé!",
-						icon: "warning",
-						dangerMode: true,
-					});
 					document.getElementById("errFullname").innerHTML = "Không để trống họ và tên";
 					return false;
 				}
@@ -210,22 +204,10 @@ if($_SESSION['login']['role']!=1) {
 			}
 			else if (!regExName.test(fullname.value)) {
 				if (errFullname==null) {
-					swal({
-						title: "Lỗi: Họ tên không hợp lệ",
-						text: "...kiểm tra lại nhé!",
-						icon: "warning",
-						dangerMode: true,
-					});
 					document.getElementById("errFullname").innerHTML = "Định dạng họ và tên không đúng. Họ tên chỉ chứa chữ cái và khoảng trống";
 					return false;
 				}
 				else {
-					swal({
-						title: "Lỗi: Họ tên không hợp lệ",
-						text: "...kiểm tra lại nhé!",
-						icon: "warning",
-						dangerMode: true,
-					});
 					document.getElementById("errFullname").innerHTML = "Định dạng họ và tên không đúng. Họ tên chỉ chứa chữ cái và khoảng trống";
 					errFullname.style.display = "none";
 					return false;
@@ -242,22 +224,10 @@ if($_SESSION['login']['role']!=1) {
 			}
 			if (email.value == "") {
 				if (errEmail==null) {
-					swal({
-						title: "Dữ liệu sai định dạng!",
-						text: "...kiểm tra lại nhé!",
-						icon: "warning",
-						dangerMode: true,
-					});
 					document.getElementById("errEmail").innerHTML = "Không để trống email";
 					return false;
 				}
 				else {
-					swal({
-						title: "Dữ liệu sai định dạng!",
-						text: "...kiểm tra lại nhé!",
-						icon: "warning",
-						dangerMode: true,
-					});
 					document.getElementById("errEmail").innerHTML = "Không để trống email";
 					errEmail.style.display = "none";
 					return false;
@@ -265,22 +235,10 @@ if($_SESSION['login']['role']!=1) {
 			}
 			else if (!regExMail.test(email.value)) {
 				if (errEmail==null) {
-					swal({
-						title: "Cảnh báo: Địa chỉ Email không hợp lệ",
-						text: "...kiểm tra lại nhé!",
-						icon: "warning",
-						dangerMode: true,
-					});
 					document.getElementById("errEmail").innerHTML = "Định dạng email không đúng. Email thường có dạng example@company.com";
 					return false;
 				}
 				else {
-					swal({
-						title: "Cảnh báo: Địa chỉ Email không hợp lệ",
-						text: "...kiểm tra lại nhé!",
-						icon: "warning",
-						dangerMode: true,
-					});
 					document.getElementById("errEmail").innerHTML = "Định dạng email không đúng. Email thường có dạng example@company.com";
 					errEmail.style.display = "none";
 					return false;
@@ -296,32 +254,14 @@ if($_SESSION['login']['role']!=1) {
 				}
 			}
 			if (password.value == "") {
-				swal({
-					title: "Cảnh báo: Không bỏ trống mật khẩu",
-					text: "...kiểm tra lại nhé!",
-					icon: "warning",
-					dangerMode: true,
-				});
 				document.getElementById("errPw").innerHTML = "Bạn chưa nhập mật khẩu";
 				return false;
 			}
 			else if (!regExPassword.test(password.value)) {
-				swal({
-					title: "Cảnh báo: Mật khẩu không hợp lệ",
-					text: "...kiểm tra lại nhé!",
-					icon: "warning",
-					dangerMode: true,
-				});
 				document.getElementById("errRePw").innerHTML = "Mật khẩu từ 8-25 ký tự. Gồm chữ thường, chữ hoa và số";
 				return false;
 			}
 			if (repassword.value != password.value) {
-				swal({
-					title: "Cảnh báo: Mật khẩu nhập lại không khớp",
-					text: "...kiểm tra lại nhé!",
-					icon: "warning",
-					dangerMode: true,
-				});
 				document.getElementById("errPw").innerHTML = "Mật khẩu bạn nhập lại không khớp với mật khẩu phía trên";
 				return false;
 			}

@@ -120,7 +120,7 @@ $cate = getSimpleQuery($sql,true);
                   <label>Trạng thái</label>
                   <br>
                   <div class="checkbox icheck">
-                    <label><input type="radio" name="status" value="1"> Còn hàng &nbsp;</label>
+                    <label><input type="radio" name="status" value="1" checked> Còn hàng &nbsp;</label>
                     <label><input type="radio" name="status" value="0"> Hết hàng</label>
                   </div>
                   
@@ -206,22 +206,10 @@ $cate = getSimpleQuery($sql,true);
     var errSalePriceBack = document.getElementById("errSalePriceBack");
     if (name.value == "") {
       if (errNameBack==null) {
-        swal({
-          title: "Bạn chưa điền tên sản phẩm!",
-          text: "...kiểm tra lại nhé!",
-          icon: "warning",
-          dangerMode: true,
-        });
         document.getElementById("errName").innerHTML = "Bạn chưa điền tên sản phẩm. Tên sản phẩm phải không được trùng với sản phẩm đã có";
         return false;
       }
       else {
-        swal({
-          title: "Bạn chưa điền tên sản phẩm!",
-          text: "...kiểm tra lại nhé!",
-          icon: "warning",
-          dangerMode: true,
-        });
         document.getElementById("errName").innerHTML = "Bạn chưa điền tên sản phẩm. Tên sản phẩm phải không được trùng với sản phẩm đã có";
         errNameBack.style.display = "none";
         return false;
@@ -229,22 +217,10 @@ $cate = getSimpleQuery($sql,true);
     }
     if (listprice.value != parseInt(listprice.value)) {
       if (errListPriceBack==null) {
-        swal({
-          title: "Có lỗi khi nhập giá gốc!",
-          text: "...kiểm tra lại nhé!",
-          icon: "warning",
-          dangerMode: true,
-        });
         document.getElementById("errListPrice").innerHTML = "Giá gốc phải là số tự nhiên";
         return false;
       }
       else {
-        swal({
-          title: "Có lỗi khi nhập giá gốc!",
-          text: "...kiểm tra lại nhé!",
-          icon: "warning",
-          dangerMode: true,
-        });
         document.getElementById("errListPrice").innerHTML = "Giá gốc phải là số tự nhiên";
         errListPriceBack.style.display = "none";
         return false;
@@ -252,22 +228,10 @@ $cate = getSimpleQuery($sql,true);
     }
     else if (parseInt(listprice.value) < 0) {
       if (errListPriceBack==null) {
-        swal({
-          title: "Có lỗi khi nhập giá gốc!",
-          text: "...kiểm tra lại nhé!",
-          icon: "warning",
-          dangerMode: true,
-        });
         document.getElementById("errListPrice").innerHTML = "Giá gốc phải là số tự nhiên";
         return false;
       }
       else {
-        swal({
-          title: "Có lỗi khi nhập giá gốc!",
-          text: "...kiểm tra lại nhé!",
-          icon: "warning",
-          dangerMode: true,
-        });
         document.getElementById("errListPrice").innerHTML = "Giá gốc phải là số tự nhiên";
         errListPriceBack.style.display = "none";
         return false;
@@ -278,22 +242,10 @@ $cate = getSimpleQuery($sql,true);
     }
     if (saleprice.value != parseInt(saleprice.value)) {
       if (errSalePriceBack==null) {
-        swal({
-          title: "Có lỗi khi nhập giá bán!",
-          text: "...kiểm tra lại nhé!",
-          icon: "warning",
-          dangerMode: true,
-        });
         document.getElementById("errSalePrice").innerHTML = "Giá bán phải là số tự nhiên. Dữ liệu bạn vừa nhập không phải là số";
         return false;
       }
       else {
-        swal({
-          title: "Có lỗi khi nhập giá bán!",
-          text: "...kiểm tra lại nhé!",
-          icon: "warning",
-          dangerMode: true,
-        });
         document.getElementById("errSalePrice").innerHTML = "Giá bán phải là số tự nhiên. Dữ liệu bạn vừa nhập không phải là số";
         errSalePriceBack.style.display = "none";
         return false;
@@ -301,22 +253,10 @@ $cate = getSimpleQuery($sql,true);
     }
     else if (parseInt(saleprice.value) < 0) {
       if (errSalePriceBack==null) {
-        swal({
-          title: "Có lỗi khi nhập giá bán!",
-          text: "...kiểm tra lại nhé!",
-          icon: "warning",
-          dangerMode: true,
-        });
         document.getElementById("errSalePrice").innerHTML = "Giá bán phải là số tự nhiên. Dữ liệu bạn vừa nhập là số âm";
         return false;
       }
       else {
-        swal({
-          title: "Có lỗi khi nhập giá bán!",
-          text: "...kiểm tra lại nhé!",
-          icon: "warning",
-          dangerMode: true,
-        });
         document.getElementById("errSalePrice").innerHTML = "Giá bán phải là số tự nhiên. Dữ liệu bạn vừa nhập là số âm";
         errSalePriceBack.style.display = "none";
         return false;
@@ -324,22 +264,10 @@ $cate = getSimpleQuery($sql,true);
     }
     else if (parseInt(saleprice.value) > parseInt(listprice.value)) {
       if (errSalePriceBack==null) {
-        swal({
-          title: "Có lỗi khi nhập giá!",
-          text: "...kiểm tra lại nhé!",
-          icon: "warning",
-          dangerMode: true,
-        });
         document.getElementById("errSalePrice").innerHTML = "Giá bán bắt buộc nhỏ hơn hoặc bằng giá gốc";
         return false;
       }
       else {
-        swal({
-          title: "Có lỗi khi nhập giá!",
-          text: "...kiểm tra lại nhé!",
-          icon: "warning",
-          dangerMode: true,
-        });
         document.getElementById("errSalePrice").innerHTML = "Giá bán bắt buộc nhỏ hơn hoặc bằng giá gốc";
         errSalePriceBack.style.display = "none";
         return false;

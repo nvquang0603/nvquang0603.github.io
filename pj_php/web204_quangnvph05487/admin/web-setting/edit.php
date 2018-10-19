@@ -145,42 +145,18 @@
       var map = document.forms["edit-setting-form"]["map"];
       var fb = document.forms["edit-setting-form"]["fb"]; 
       if (hotline.value == "") {
-        swal({
-          title: "Bạn chưa điền Hotline!",
-          text: "...kiểm tra lại nhé!",
-          icon: "warning",
-          dangerMode: true,
-        });
         document.getElementById("errHotline").innerHTML = "Bạn chưa điền Hotline";
         return false;
       }
       if (email.value == "") {
-        swal({
-          title: "Bạn chưa điền email!",
-          text: "...kiểm tra lại nhé!",
-          icon: "warning",
-          dangerMode: true,
-        });
         document.getElementById("errEmail").innerHTML = "Bạn chưa điền Email";
         return false;
       }
       if (map.value == "") {
-        swal({
-          title: "Bạn chưa điền mã nhúng bản đồ!",
-          text: "...kiểm tra lại nhé!",
-          icon: "warning",
-          dangerMode: true,
-        });
         document.getElementById("errMap").innerHTML = "Bạn chưa điền mã nhúng Bản đồ";
         return false;
       }
       if (fb.value == "") {
-        swal({
-          title: "Bạn chưa điền mã nhúng Fanpage!",
-          text: "...kiểm tra lại nhé!",
-          icon: "warning",
-          dangerMode: true,
-        });
         document.getElementById("errFB").innerHTML = "Bạn chưa điền mã nhúng Fanpage";
         return false;
       }

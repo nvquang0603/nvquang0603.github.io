@@ -80,7 +80,7 @@ function status($status) {
 		<div class="row product-row">
 			<?php
 			$product_cate = $product['cate_id'];
-			$sqlGetRelateProduct = "select * from products where cate_id = $product_cate";
+			$sqlGetRelateProduct = "select * from products where cate_id = $product_cate and id != $id";
 			$stmt = $conn->prepare($sqlGetRelateProduct);
 			$stmt->execute();
 			$relateProduct = $stmt->fetchAll();
@@ -112,7 +112,7 @@ function status($status) {
 				<form action="submit_comment.php" method="POST" name="comment-form" onsubmit="return validateFormSubmit()">
 					<input type="hidden" name="id" value="<?= $id?>">
 					<div class="form-group">
-						<input type="email" name="email" class="form-control" placeholder="Email" onchange="validateFormAuto()">
+						<input type="text" name="email" class="form-control" placeholder="Email" onchange="validateFormAuto()">
 						<span class="text-danger" id="errEmail">								
 						</span>
 						<?php if (isset($_GET['errEmail'])) {
@@ -174,42 +174,22 @@ function status($status) {
 			var email = document.forms["comment-form"]["email"];
 			var content = document.forms["comment-form"]["content"];
 			if (email.value == "") {
-				swal({
-					title: "Bạn chưa điền Email!",
-					text: "...kiểm tra lại nhé!",
-				});
 				document.getElementById("errEmail").innerHTML = "Định dạng email không đúng. Email thường có dạng example@company.com";
 				return false;
 			}
 			else if (!regExMail.test(email.value)) {
-				swal({
-					title: "Lỗi: Địa chỉ Email không hợp lệ",
-					text: "...kiểm tra lại nhé!",
-				});
 				document.getElementById("errEmail").innerHTML = "Định dạng email không đúng. Email thường có dạng example@company.com";
 				return false;
 			}
 			if (content.value == "") {
-				swal({
-					title: "Lỗi: Thiếu nội dung",
-					text: "...kiểm tra lại nhé!",
-				});
 				document.getElementById("errContent").innerHTML = "Vui lòng điền nội dung. Tối thiểu 25 ký tự và tối đa 200 ký tự";
 				return false;
 			}
 			else if(content.value.includes(str)||content.value.includes(str2)) {
-				swal({
-					title: "Cảnh báo: Nội dung gây hại",
-					text: "...kiểm tra lại nhé!",
-				});
 				document.getElementById("errContent").innerHTML = "Bình luận của bạn chứa nội dung gây hại cho website. Kiểm tra kỹ lại nhé!";
 				return false;
 			}
 			else if (content.value.length < 25 || content.value.length > 200) {
-				swal({
-					title: "Lỗi: Thiếu nội dung",
-					text: "...kiểm tra lại nhé!",
-				});
 				document.getElementById("errContent").innerHTML = "Nội dung tối thiểu 25 ký tự và tối đa 200 ký tự";
 				return false;
 			}		    

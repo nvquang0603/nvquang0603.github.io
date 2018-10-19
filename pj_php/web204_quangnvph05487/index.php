@@ -1,5 +1,4 @@
 <?php 
-
 require_once './assets/commons/utils.php';	
 $newProductsQuery = "select * 
 						from " . TABLE_PRODUCT .
@@ -48,7 +47,6 @@ $mostViewProducts = $stmt->fetchAll();
 		<div class="product">
 			<h3>Sản phẩm mới</h3>
 			<div class="row product-row">
-				<div class="col"></div>
 				<?php 
 				foreach ($newProducts as $product) {
 					?>
