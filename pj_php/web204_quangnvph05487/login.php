@@ -77,16 +77,6 @@
   <script type="text/javascript">
     $(document).ready(function() {
       <?php 
-          if (isset($_GET['msg'])) {
-            ?>
-              swal({
-                title: "Cảnh báo",
-                text: "<?php echo $_GET['msg']?>",
-                icon: "warning",
-                dangerMode: true,
-              });
-            <?php
-          }
           if (isset($_GET['success'])) {
             ?>
               swal({
@@ -117,22 +107,10 @@
       var errPwBack = document.getElementById("errPwBack");
       if (email.value == "") {
         if (errEmailBack==null) {
-          swal({
-            title: "Bạn chưa nhập Email",
-            text: "...kiểm tra lại nhé!",
-            icon: "warning",
-            dangerMode: true,
-          });
           document.getElementById("errEmail").innerHTML = "Vui lòng nhập đủ email và mật khẩu";
           return false;
         }
         else {
-          swal({
-            title: "Bạn chưa nhập Email",
-            text: "...kiểm tra lại nhé!",
-            icon: "warning",
-            dangerMode: true,
-          });
           document.getElementById("errEmail").innerHTML = "Vui lòng nhập đủ email và mật khẩu";
           errNameBack.style.display = "none";
           return false;
@@ -140,22 +118,10 @@
       }
       if (password.value == "") {
         if (errPwBack==null) {
-          swal({
-            title: "Bạn chưa nhập mật khẩu",
-            text: "...kiểm tra lại nhé!",
-            icon: "warning",
-            dangerMode: true,
-          });
           document.getElementById("errPw").innerHTML = "Vui lòng nhập đủ email và mật khẩu";
           return false;
         }
         else {
-          swal({
-            title: "Bạn chưa nhập mật khẩu",
-            text: "...kiểm tra lại nhé!",
-            icon: "warning",
-            dangerMode: true,
-          });
           document.getElementById("errPw").innerHTML = "Vui lòng nhập đủ email và mật khẩu";
           errPwBack.style.display = "none";
           return false;

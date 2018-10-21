@@ -174,7 +174,8 @@ $cate = getSimpleQuery($sql,true);
         var anh = this.files[0];
         if(anh == undefined){
           document.querySelector('#showImage').src = "<?= $siteUrl?>assets/images/sample_image/default-picture.png";
-        }else{
+        }
+        else{
           getBase64(anh, '#showImage');
         }
       }

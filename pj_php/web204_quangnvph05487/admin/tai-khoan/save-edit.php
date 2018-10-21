@@ -55,7 +55,7 @@
 	if ($phone == "") {
 		
 	}
-	else if (preg_match($regExPhone, $phone)==false) {
+	else if (preg_match($regExPhone, $phone_number)==false) {
 		header('location: '.$adminUrl.'tai-khoan/edit.php?id='.$id.'&errPhone=SĐT không hợp lệ');
 		die;	
 	}

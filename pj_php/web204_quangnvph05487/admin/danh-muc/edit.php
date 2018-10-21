@@ -3,7 +3,9 @@
   $path = '../';
   require_once $path.$path.'assets/commons/utils.php';
   $cateId = $_GET['id'];
-  $sql = "select * from categories where id = $cateId";
+  $sql = "select * 
+          from categories 
+          where id = $cateId";
   $cate = getSimpleQuery($sql);
   if (!$cate) {
     header('location: '. $adminUrl .'danh-muc');

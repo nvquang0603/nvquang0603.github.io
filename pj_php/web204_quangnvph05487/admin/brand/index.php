@@ -6,8 +6,11 @@
       header('location: '.$adminUrl . '?errAdmin=Chỉ Admin mới truy cập được trang này');
       die;
     }
-    $sqlBrand = 'select * from brands 
+    
+    $sqlBrand = 'select * 
+                from brands 
                 order by id';
+
     $brand = getSimpleQuery($sqlBrand,true);
 ?>
 <!DOCTYPE html>

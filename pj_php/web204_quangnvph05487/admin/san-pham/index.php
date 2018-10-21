@@ -2,12 +2,6 @@
 session_start();
 $path = '../';
 require_once $path.$path.'assets/commons/utils.php';
-$sqlProduct = 'select *, 
-              products.id as pid 
-                from products inner join categories 
-                    on products.cate_id = categories.id 
-                order by pid';
-$product = getSimpleQuery($sqlProduct,true);
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,7 +9,7 @@ $product = getSimpleQuery($sqlProduct,true);
   <?php 
   include $path.'_share/style_assets.php';
   ?>
-  <title>AdminLTE 2 | Sản phẩm</title>
+  <title>AdminLTE 2 | Dashboard</title>
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -55,15 +49,15 @@ $product = getSimpleQuery($sqlProduct,true);
       <section class="content">
         <div class="box">
           <div class="box-header with-border">
-            <h3 class="box-title">Quản lý sản phẩm</h3>
+            <h3 class="box-title">Quản lý danh mục</h3>
           </div>
           <!-- /.box-header -->
           <div class="box-body">
-            <table id="productTable" class="display table table-bordered">
+            <table id="categoryTable" class="display table table-bordered">
               <thead>
                 <tr>
-                  <th style="width: 10px">#</th>
-                  <th>Ảnh sản phẩm</th>
+                  <th>#</th>
+                  <th style="width: 300px">Ảnh sản phẩm</th>
                   <th>Tên sản phẩm</th>
                   <th>Danh mục</th>
                   <th>Giá gốc</th>
@@ -79,70 +73,43 @@ $product = getSimpleQuery($sqlProduct,true);
                   </th>
                 </tr>
               </thead>
+              </table>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer clearfix">
 
-              <tbody>
-                
-                <?php foreach ($product as $product): ?>
-                  <tr>
-                    <td><?php echo $product['pid'] ?></td>
-                    <td><a href="<?php echo $siteUrl ?>product_detail.php?id=<?php echo $product['pid'] ?>" target="_blank"><img src="<?php echo $siteUrl . $product['image']?>" class='img-thumbnail' width=500px></a></td>
-                    <td><?php echo $product['product_name'] ?></td>
-                    <td><?php echo $product['name'] ?></td>
-                    <td>
-                      <?php echo $product['list_price'] ?>
-                    </td>
-                    <td>
-                      <?php echo $product['sell_price'] ?>
-                    </td>
-                    <td>
-                      <?php echo $product['detail'] ?>
-                    </td>
-                    <td>
-                      <?php echo $product['views'] ?>
-                    </td>
-                    <td>
-                      <?php 
-                      if ($product['status']==1) {
-                        echo "Còn hàng";
-                      }
-                      if ($product['status']==0) {
-                        echo "Hết hàng";
-                      }
-                      ?>
-                    </td>
-                    <td>
-                      <a href="<?= $adminUrl?>san-pham/edit.php?id=<?= $product['pid']?>"
-                        class="btn btn-xs btn-info">
-                        Chỉnh sửa
-                      </a>
-                      <a href="javascript:void(0)" linkurl="<?= $adminUrl?>san-pham/remove.php?id=<?= $product['pid']?>"
-                        class="btn btn-xs btn-danger btn-remove">
-                        Xoá
-                      </a>
-                    </td>
-                  </tr>
-                <?php endforeach ?>
-              </tbody>
-            </table>
+            </div>
           </div>
-          <!-- /.box-body -->
-        </div>
-      </section>
-      <!-- /.content -->
+        </section>
+        <!-- /.content -->
+      </div>
+      <?php 
+      include $path.'_share/footer.php';
+      ?>
+
+      <!-- Control Sidebar -->
+
     </div>
+    <!-- ./wrapper -->
+
     <?php 
-    include $path.'_share/footer.php';
+    include $path.'_share/js_assets.php';
     ?>
-
-    <!-- Control Sidebar -->
-
-  </div>
-  <!-- ./wrapper -->
-
-  <?php 
-  include $path.'_share/js_assets.php';
-  ?>
-  <script type="text/javascript">
+    <script type="text/javascript">
+      $(document).ready(function() {
+        var dataTable = $('#categoryTable').DataTable({
+          "processing": true,
+          "serverSide": true,
+          "pagingType": "full_numbers",
+          "ajax": {
+            "url":"server_processing.php"
+          },
+          "bStateSave": true,
+          "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Tất cả"]]
+        })
+      });
+    </script>
+    <script type="text/javascript">
     <?php 
     if (isset($_GET['edit-success']) && $_GET['edit-success'] == true) {
       ?>
@@ -165,34 +132,30 @@ $product = getSimpleQuery($sqlProduct,true);
       <?php
     }
     ?>
-    $('.btn-remove').on('click',function() {
-      swal({
-        title: "Bạn có muốn xóa sản phẩm này không?",
-        text: "Một khi đã xóa. Sản phẩm sẽ không thể quay lại",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
+    $( document ).ajaxComplete(function() {
+      $('.btn-remove').click(function() {
+        swal({
+          title: "Bạn có muốn xóa sản phẩm này không?",
+          text: "Một khi đã xóa. Sản phẩm sẽ không thể quay lại",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            window.location.href = $(this).attr('linkurl');
+            swal("Đang xóa", {
+              icon: "success",
+            });
+          } 
+          else {
+            swal("Bạn đã hủy việc xóa sản phẩm");
+          }
+        });
       })
-      .then((willDelete) => {
-        if (willDelete) {
-          window.location.href = $(this).attr('linkurl');
-          swal("Đang xóa", {
-            icon: "success",
-          });
-        } 
-        else {
-          swal("Bạn đã hủy việc xóa sản phẩm");
-        }
-      });
-    })
-  </script>
-  <script type="text/javascript">
-    $(document).ready(function() {
-      $('#productTable').DataTable( {
-        "pagingType": "full_numbers",
-        "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Tất cả"]]
-      });
     });
-  </script>
-</body>
-</html>
+    
+    </script>
+    
+  </body>
+  </html>

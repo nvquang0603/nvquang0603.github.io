@@ -2,12 +2,15 @@
 session_start();
 $path = '../';
 require_once $path.$path.'assets/commons/utils.php';
+
 $sqlCateProduct =   'select categories.*, 
                         (select count(*) 
-                            from products
+                        from products
                         where cate_id = categories.id) as total_product 
                     from categories';
+
 $cateProduct = getSimpleQuery($sqlCateProduct,true);
+
 ?>
 
 <!DOCTYPE html>
@@ -167,7 +170,8 @@ $cateProduct = getSimpleQuery($sqlCateProduct,true);
     <script type="text/javascript">
     $(document).ready(function() {
       $('#categoryTable').DataTable( {
-        "pagingType": "full_numbers"
+        "pagingType": "full_numbers",
+        "bStateSave": true
       });
     });
   </script>

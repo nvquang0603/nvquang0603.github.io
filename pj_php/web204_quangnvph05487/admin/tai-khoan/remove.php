@@ -13,7 +13,7 @@
 		header("location: " . $adminUrl . "users");
 		die;
 	}
-	if ($user['role']==1) {
+	if ($user['role']<2) {
 		header("location: " . $adminUrl . "tai-khoan?errAdmin=Không thể xóa tài khoản admin");
 		die;
 	}

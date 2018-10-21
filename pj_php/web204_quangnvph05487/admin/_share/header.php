@@ -1,7 +1,7 @@
 <?php 
 require_once $path.'../assets/commons/utils.php';
 if(!isset($_SESSION['login']) || $_SESSION['login'] == null){
-  header('location: '.$siteUrl.'login.php?msg=Bạn chưa đăng nhập!');
+  header('location: '.$siteUrl.'login.php');
   die;
 }
 else if ($_SESSION['login']['role'] > 2) {

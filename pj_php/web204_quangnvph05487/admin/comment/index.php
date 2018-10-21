@@ -2,12 +2,15 @@
 session_start();
 $path = '../';
 require_once $path.$path.'assets/commons/utils.php';
+
 $sqlComment = 'select *, 
-              comments.id as cid from 
-                comments inner join products 
-                  on comments.product_id = products.id 
+                  comments.id as cid 
+              from comments 
+              inner join products on comments.product_id = products.id 
               order by cid';
+
 $comment = getSimpleQuery($sqlComment,true);
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -65,30 +68,10 @@ $comment = getSimpleQuery($sqlComment,true);
                   <th style="width: 10px">#</th>
                   <th>Cho sản phẩm</th>
                   <th>Email</th>
-                  <th style="width: 240px">Miêu tả</th>
+                  <th style="width: 240px">Nội dung</th>
                   <th></th>
                 </tr>
               </thead>
-              <tbody>
-                <?php foreach ($comment as $comment): ?>
-                  <tr>
-                    <td><?php echo $comment['cid'] ?></td>
-                    <td><a href="<?php echo $siteUrl ?>product_detail.php?id=<?php echo $comment['id']?>" target="_blank"><?php echo $comment['product_name'] ?></a></td>
-                    <td>
-                      <?php echo $comment['email'] ?>
-                    </td>
-                    <td>
-                      <?php echo htmlentities($comment['content']) ?>
-                    </td>
-                    <td>                      
-                      <a href="javascript:void(0)" linkurl="<?= $adminUrl?>comment/remove.php?id=<?= $comment['cid']?>"
-                        class="btn btn-xs btn-danger btn-remove">
-                        Xoá
-                      </a>
-                    </td>
-                  </tr>
-                <?php endforeach ?>
-              </tbody>
             </table>
           </div>
           <!-- /.box-body -->
@@ -112,32 +95,41 @@ $comment = getSimpleQuery($sqlComment,true);
   include $path.'_share/js_assets.php';
   ?>
   <script type="text/javascript">
-    $('.btn-remove').on('click',function() {
-      swal({
-        title: "Bạn có muốn xóa comment này không?",
-        text: "Một khi đã xóa. Comment sẽ không thể quay lại",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-      })
-      .then((willDelete) => {
-        if (willDelete) {
-          window.location.href = $(this).attr('linkurl');
-          swal("Bạn có muốn xóa comment này không?", {
-            icon: "success",
-          });
-        } 
-        else {
-          swal("Bạn đã hủy việc xóa comment");
-        }
+      $(document).ready(function() {
+        var dataTable = $('#commentTable').DataTable({
+          "processing": true,
+          "serverSide": true,
+          "pagingType": "full_numbers",
+          "ajax": {
+            "url":"server_processing.php"
+          },
+          "bStateSave": true,
+          "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Tất cả"]]
+        })
       });
-    })
   </script>
   <script type="text/javascript">
-    $(document).ready(function() {
-      $('#commentTable').DataTable( {
-        "pagingType": "full_numbers"
-      });
+    $( document ).ajaxComplete(function() {
+      $('.btn-remove').click(function() {
+        swal({
+          title: "Bạn có muốn xóa sản phẩm này không?",
+          text: "Một khi đã xóa. Sản phẩm sẽ không thể quay lại",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            window.location.href = $(this).attr('linkurl');
+            swal("Đang xóa", {
+              icon: "success",
+            });
+          } 
+          else {
+            swal("Bạn đã hủy việc xóa sản phẩm");
+          }
+        });
+      })
     });
   </script>
 </body>

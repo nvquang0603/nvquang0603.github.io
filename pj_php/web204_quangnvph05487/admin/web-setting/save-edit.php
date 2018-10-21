@@ -2,7 +2,6 @@
 	session_start();
 	$path = '../';
 	require_once $path.$path.'assets/commons/utils.php';
-	$id = $_POST['id'];
 	if ($_SERVER['REQUEST_METHOD'] != 'POST') {
 		header('location: '. $adminUrl . 'slideshow');
 		die;
@@ -13,6 +12,7 @@
     }
 	$origin_image = $_POST['origin-image'];
 	$hotline = test_input($_POST['hotline']);
+	$regExPhone = '/(09|01[2|6|8|9])+([0-9]{8})\b/';
 	$email = test_input($_POST['email']);
 	$map = $_POST['map'];
 	$fb = $_POST['fb'];
@@ -24,15 +24,35 @@
 	$valid_img_type = array('image/jpeg','image/png','image/gif','image/jpg');
 	$imgUrl = 'assets/images/' . $imgName;
 	$imgSRC = $path.$path.'assets/images/' . $imgName;
+	if (hotline=="") {
+		header('location: '. $adminUrl .'web-setting/edit.php?errHotline=Bạn chưa điền hotline');
+		die;
+	}
+	else if (preg_match($regExPhone, $hotline)==false) {
+		header('location: '.$adminUrl.'web-setting/edit.php?id='.$id.'&errHotline=SĐT không hợp lệ');
+		die;	
+	}
+	if (email=="") {
+		header('location: '. $adminUrl .'web-setting/edit.php?id='.$id.'&errEmail=Bạn chưa điền email');
+		die;
+	}
+	if (map=="") {
+		header('location: '. $adminUrl .'web-setting/edit.php?id='.$id.'&errMap=Bạn chưa điền mã nhúng bản đồ');
+		die;
+	}
+	if (fb=="") {
+		header('location: '. $adminUrl .'web-setting/edit.php?id='.$id.'&errFacebook=Bạn chưa điền mã nhúng fanpage');
+		die;
+	}
 	if ($imgSize == 0) {
 		$imgUrl = $origin_image;
 	}
 	else if (!in_array($imgType,$valid_img_type)) {
-		header('location: '. $adminUrl .'web-setting/edit.php?errImage=Sai định dạng file');
+		header('location: '. $adminUrl .'web-setting/edit.php?id='.$id.'&errImage=Sai định dạng file');
 		die;
 	}
 	else if ($imgSize > $maxsize) {
-		header('location: '. $adminUrl .'web-setting/edit.php?errImage=Dung lượng quá lớn. Chỉ upload ảnh tối đa 2MB');
+		header('location: '. $adminUrl .'web-setting/edit.php?id='.$id.'&errImage=Dung lượng quá lớn. Chỉ upload ảnh tối đa 2MB');
 		die;
 	}
 	else {

@@ -208,7 +208,8 @@
     <script type="text/javascript">
     $(document).ready(function() {
       $('#userTable').DataTable( {
-        "pagingType": "full_numbers"
+        "pagingType": "full_numbers",
+        "bStateSave": true
       });
     });
   </script>

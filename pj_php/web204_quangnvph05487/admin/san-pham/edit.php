@@ -109,8 +109,8 @@ $cate = getSimpleQuery($sql,true);
               </div>
             </div>
             <div class="col-md-6">
-              <div class="col-md-6 col-md-offset-4">
-                <img id="showImage" src="<?php echo $siteUrl . $product['image']?>" width="200px">
+              <div class="col-md-6 col-md-offset-3">
+                <img id="showImage" src="<?php echo $siteUrl . $product['image']?>" width="300px">
                 <input type="hidden" name="origin-image" value="<?php echo $product['image']?>">
               </div>
               <div class="col-md-12">

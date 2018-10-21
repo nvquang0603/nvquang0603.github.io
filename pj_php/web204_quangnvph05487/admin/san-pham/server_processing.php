@@ -1,5 +1,7 @@
 <?php
-
+$path = '../';
+require_once $path.$path.'assets/commons/utils.php';
+$id;
 /*
  * DataTables example server-side processing script.
  *
@@ -19,7 +21,7 @@
  */
 
 // DB table to use
-$table = 'products join categories on product.cate_id = categories.id';
+$table = 'products';
 
 // Table's primary key
 $primaryKey = 'id';
@@ -29,14 +31,45 @@ $primaryKey = 'id';
 // parameter represents the DataTables column identifier. In this case simple
 // indexes
 $columns = array(
-	array( 'db' => 'id',  'dt' => 0 ),
-	array( 'db' => 'name',  'dt' => 1 ),
-	array( 'db' => 'product_name',  'dt' => 2 ),
-	array( 'db' => 'detail',  'dt' => 3 ),
-	array( 'db' => 'list_price',  'dt' => 4 )
-);
+	array( 'db' => '`p`.`id`', 'dt' => 0, 'field' => 'id', 'formatter' => function( $d, $row ) {
+			global $id;
+			$id = $d;
+			return $d;
+	} ),
+	array( 'db' => '`p`.`image`', 'dt' => 1, 'formatter' => function( $d, $row ) {
+				global $siteUrl;
+				global $id;
+                return '<a href="'.$siteUrl.'product_detail.php?id='.$id.'" target="_blank"><img src="'.$siteUrl.$d.'" class="img-thumbnail" width=500px></a>';},
+            'field' => 'image' ),
+	array( 'db' => '`p`.`product_name`', 'dt' => 2, 'field' => 'product_name'),
+	array( 'db' => '`c`.`name`',  'dt' => 3, 'field' => 'name' ),
+	array( 'db' => '`p`.`list_price`',  'dt' => 4, 'field' => 'list_price' ),
+	array( 'db' => '`p`.`sell_price`',  'dt' => 5, 'field' => 'sell_price' ),
+	array( 'db' => '`p`.`detail`',  'dt' => 6, 'field' => 'detail' ),
+	array( 'db' => '`p`.`views`',  'dt' => 7, 'field' => 'views' ),
+	array( 'db' => '`p`.`status`',  'dt' => 8, 'formatter' => function( $d, $row ) {
+					if ($d==1) {
+						return 'Còn hàng';
+					}
+					else {
+						return 'Hết hàng';
+					}
+                },
+            'field' => 'status' ),
+	array( 'db' => '`p`.`id`', 'dt' => 9, 'formatter' => function( $d, $row ) {
+				global $adminUrl;
+                return '<a href="'.$adminUrl.'/san-pham/edit.php?id='.$d.'"
+                        class="btn btn-xs btn-info">
+                        Chỉnh sửa
+                      </a>
+                      <a href="javascript:void(0)" linkurl="'.$adminUrl.'san-pham/remove.php?id='.$d.'"
+                        class="btn btn-xs btn-danger btn-remove">
+                        Xoá
+                        </a>';
+                    },
+            'field' => 'id' )
+	);
 
-// SQL server connection information
 $sql_details = array(
 	'user' => 'root',
 	'pass' => '',
@@ -44,15 +77,19 @@ $sql_details = array(
 	'host' => '127.0.0.1'
 );
 
-
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * If you just want to use the basic configuration for DataTables with PHP
  * server-side, there is no need to edit below this line.
  */
 
-require( '../_share/ssp.class.php' );
+// require( 'ssp.class.php' );
+require('../_share/ssp.class.php' );
 
+$joinQuery = "FROM `products` AS `p` JOIN `categories` AS `c` ON (`c`.`id` = `p`.`cate_id`)";
+$extraWhere = "";
+$groupBy = "";
+$having = "";
 echo json_encode(
-	SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns )
+	SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns, $joinQuery, $extraWhere, $groupBy, $having )
 );
-
+?>

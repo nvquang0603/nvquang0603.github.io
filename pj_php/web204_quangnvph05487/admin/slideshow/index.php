@@ -192,7 +192,8 @@ include $path.'_share/js_assets.php';
 <script type="text/javascript">
     $(document).ready(function() {
       $('#slideTable').DataTable( {
-        "pagingType": "full_numbers"
+        "pagingType": "full_numbers",
+        "bStateSave": true
       });
     });
   </script>

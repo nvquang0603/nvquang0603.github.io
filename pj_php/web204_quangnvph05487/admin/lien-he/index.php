@@ -178,7 +178,8 @@ $contact = getSimpleQuery($sqlContact,true);
     <script type="text/javascript">
       $(document).ready(function() {
         $('#contactTable').DataTable( {
-          "pagingType": "full_numbers"
+          "pagingType": "full_numbers",
+          "bStateSave": true
         });
       });
     </script>

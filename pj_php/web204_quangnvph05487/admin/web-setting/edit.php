@@ -58,17 +58,35 @@
               <label>Hotline</label>
               <input type="text" name="hotline" class="form-control" value="<?php echo $setting['hotline']?>">
               <span class="text-danger" id="errHotline"></span>
+              <?php if (isset($_GET['errHotline'])) {
+                ?>
+                <span class="text-danger" id="errHotlineBack"><?php echo $_GET['errHotline'] ?></span>
+                <?php
+              } 
+              ?>
             </div>
             <div class="form-group">
               <label>Email</label>
               <input type="text" class="form-control" name="email" value="<?php echo $setting['email']?>">
               <span class="text-danger" id="errEmail"></span>
+              <?php if (isset($_GET['errEmail'])) {
+                ?>
+                <span class="text-danger" id="errEmailBack"><?php echo $_GET['errEmail'] ?></span>
+                <?php
+              } 
+              ?>
             </div>
             <div class="form-group">
               <div class="form-group">
                 <label>Map</label>
                 <textarea rows="5" class="form-control" name="map"><?php echo $setting['map'] ?></textarea>
                 <span class="text-danger" id="errMap"></span>
+                <?php if (isset($_GET['errMap'])) {
+                ?>
+                <span class="text-danger" id="errMapBack"><?php echo $_GET['errMap'] ?></span>
+                <?php
+              } 
+              ?>
               </div>  
             </div>
           </div>
@@ -93,6 +111,12 @@
               <label>Facebook</label>
               <textarea rows="5" class="form-control" name="fb"><?php echo $setting['fb'] ?></textarea>
               <span class="text-danger" id="errFB"></span>
+              <?php if (isset($_GET['errFacebook'])) {
+                ?>
+                <span class="text-danger" id="errFbBack"><?php echo $_GET['errFacebook'] ?></span>
+                <?php
+              } 
+              ?>
             </div>         
             <div class="text-right">
               <a href="<?= $adminUrl?>slideshow" class="btn btn-danger btn-md">Hủy</a>
