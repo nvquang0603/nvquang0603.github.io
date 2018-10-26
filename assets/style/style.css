@@ -165,6 +165,7 @@ nav ul li a:hover {
 	width: 55%;
 	padding-top: 55%;
 	border-radius: 50%;
+	box-shadow: 1px 1px 10px rgba(104,104,104,0.8);
 }
 .fullname {
 	max-width: 85%;

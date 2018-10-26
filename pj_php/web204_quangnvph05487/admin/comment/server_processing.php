@@ -40,7 +40,7 @@ $columns = array(
 		global $siteUrl;
 		$sql = "select * from products where product_name = '$d'";
 		$product = getSimpleQuery($sql);
-		return '<a href="'.$siteUrl.'product_detail.php?id='.$product['id'].'">'.$d.'</a>';
+		return '<a href="'.$siteUrl.'product_detail.php?id='.$product['id'].'" target="_blank">'.$d.'</a>';
 	}),
 	array( 'db' => '`c`.`email`',  'dt' => 2, 'field' => 'email' ),
 	array( 'db' => '`c`.`content`',  'dt' => 3, 'field' => 'content', 'formatter' => function( $d, $row ) {

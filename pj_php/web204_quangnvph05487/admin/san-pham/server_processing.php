@@ -42,7 +42,12 @@ $columns = array(
                 return '<a href="'.$siteUrl.'product_detail.php?id='.$id.'" target="_blank"><img src="'.$siteUrl.$d.'" class="img-thumbnail" width=500px></a>';},
             'field' => 'image' ),
 	array( 'db' => '`p`.`product_name`', 'dt' => 2, 'field' => 'product_name'),
-	array( 'db' => '`c`.`name`',  'dt' => 3, 'field' => 'name' ),
+	array( 'db' => '`c`.`name`',  'dt' => 3, 'field' => 'name', 'formatter' => function( $d, $row ) {
+		global $siteUrl;
+		$sql = "select * from categories where name = '$d'";
+		$cate = getSimpleQuery($sql);
+		return '<a href="'.$siteUrl.'single-category.php?id='.$cate['id'].'" target="_blank">'.$d.'</a>';
+	}),
 	array( 'db' => '`p`.`list_price`',  'dt' => 4, 'field' => 'list_price' ),
 	array( 'db' => '`p`.`sell_price`',  'dt' => 5, 'field' => 'sell_price' ),
 	array( 'db' => '`p`.`detail`',  'dt' => 6, 'field' => 'detail' ),
