@@ -1,0 +1,11 @@
+body {
+	display: grid;
+	justify-content: center;
+	align-items: center;
+	height: 100vmin;
+	width: 100vmax;
+}
+html {
+	font-family: Helvetica;
+	color: #C6C6C6;
+}
