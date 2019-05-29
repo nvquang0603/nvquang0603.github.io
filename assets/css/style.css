@@ -7,10 +7,12 @@ html {
 	font-family: 'Open Sans', sans-serif;
 }
 body {
-	width: 100vmin;
+	max-width: 100vmin;
 	background: #DDDDDD;
 }
+
 #header-bg {
+	position: relative;
 	width: 100vmin;
 	height: 100vmax;
 	background-image: url(../images/header-bg.png) ;
@@ -19,6 +21,7 @@ body {
 	background-position: center;
 }
 #header-content {
+	position: relative;
 	width: 100%;
 	height: 100%;
 	background-color: rgba(0, 98, 255, 0.3);
@@ -28,15 +31,65 @@ body {
 	align-items: center;
 	font-family: 'Raleway', sans-serif;
 	font-weight: thin;
-	font-size: 50px;
+	font-size: 40px;
 	text-transform: uppercase;
 	line-height: 96px;
 	color: #FFF;
 }
+#triangle {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+	border-bottom: 100vmax solid transparent;
+	border-left: 100vmin solid rgba(255, 247, 0, 0.1);
+	
+}
 .title {
-	font-size: 80px;
+	font-size: 70px;
 }
 .description {
 	font-size: 70px;
 }
+.subtitle {
+	border-top: 3px solid #fff;
+	margin-top: 10px;
+}
+.social-contact {
+	display: grid;
+	grid-gap: 20px;
+	grid-template-columns: auto auto auto;
+}
+.social-icon {
+	width: 100px;
+	height: 100px;
+	display: flex;
+	font-size: 70px;
+	justify-content: center;
+	align-items: center;
+	border-radius: 50%;
+	border: 3px solid #fff;
+}
+.social-contact a {
+	text-decoration: none;
+	color: #fff;
+}
 
+@media only screen and (orientation: landscape) {
+	body {
+		width: 100vmax;
+	}
+	#header-bg {
+		width: 100vmax;
+		height: 100vmin;
+		overflow: hidden;
+	}
+	.social-icon {
+		width: 75px;
+		height: 75px;
+		font-size: 50px;
+	}
+} 
