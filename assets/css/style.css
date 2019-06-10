@@ -109,6 +109,7 @@ body {
 .p-content {
 	font-size: 2em;
 	font-weight: 100;
+	line-height: 2.5em;
 }
 @media only screen and (orientation: landscape) {
 	body {
